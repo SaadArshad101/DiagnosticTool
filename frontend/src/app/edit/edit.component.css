@@ -1,0 +1,71 @@
+textarea, input {
+    box-sizing: content-box
+}
+
+.enabled .inactive:hover {
+    border: 1px solid rgb(238, 238, 238);
+}
+
+.enabled .inactive {
+    cursor: text;
+    border: 1px solid transparent;
+    display: block;
+}
+
+.no-data {
+    color: #757575;
+}
+
+.mat-form-field, input {
+    width: 95%;
+}
+
+.active {
+    display: inline-block;
+    width: 100%;
+}
+
+.enabled .pen-outer {
+    position: relative;
+    top: 0;
+    width: 0;
+    overflow: visible;
+    float: right;
+    z-index: 2;
+}
+
+.enabled .pen-inner {
+    position: absolute;
+    right: 0;
+    width: 32px;
+    background-color: rgb(238, 238, 238);
+    text-align: center;
+    cursor: pointer;
+}
+
+.enabled .pen-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.buttons-outer {
+    position: relative;
+    z-index: 9999;
+}
+
+.buttons-inner {
+    position: absolute;
+    right: 0;
+    white-space: nowrap;
+    z-index: 9999;
+}
+
+.editor-button {
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.cancel-button {
+    color: #00a6b5;
+    background-color: #FFFFFF; 
+}

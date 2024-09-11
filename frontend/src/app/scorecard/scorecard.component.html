@@ -1,0 +1,154 @@
+<div *ngFor="let sc of scorecards; let i = index; trackBy:identify" class="scorecard-wrap">
+        <div class="scorecard-topline">
+            <!-- SECTION A -->
+            <div class="processes-wrap">
+                <table class="core-processes table table-bordered helvetica">
+                    <thead class="header-row">
+                    <tr class="heading">
+                        <th>Core Process</th>
+                        <th>ID #</th>
+                        <th>Maturity</th>
+                    </tr>
+                    <tr class="subhead">
+                        <th><app-edit [(dataModel)]="sc.coreProcess" [disable]="!editable" placeholder="Core Process"></app-edit></th>
+                        <th class="process-id">{{ diagnostic.processLabel }}<app-edit [(dataModel)]="sc.coreProcessId" [disable]="!editable" placeholder="Core Process ID" style="display:inline-block;"></app-edit></th>
+                        <th class="harvey-column"><img *ngIf="getBallForMaturity(sc.maturity)" class="harvey" src="{{ getBallForMaturity(sc.maturity) }}"></th> 
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3">
+                                <div>
+                                    <b><i>Benefits and Outcomes</i></b>
+                                    <app-edit [(dataModel)]="sc.benefitsAndOutcomes" [disable]="!editable" [textarea]="true" ></app-edit>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- SECTION D -->
+            <div class="findings-wrap">
+                <table class="findings table table-bordered helvetica">
+                    <thead class="proc-head">
+                        <tr>
+                            <th class="people-head add-spacing">{{ diagnostic.inventory[0].name }} Findings</th>
+                            <th class="proc-head add-spacing">{{ diagnostic.inventory[1].name }} Findings</th>
+                            <th class="tech-head add-spacing">{{ diagnostic.inventory[2].name }} Findings</th> 
+                            <th *ngIf="diagnostic.inventory.length > 3" class="user-added-head1 add-spacing">{{ diagnostic.inventory[3].name }} Findings</th> 
+                            <th *ngIf="diagnostic.inventory.length > 4" class="user-added-head2 add-spacing">{{ diagnostic.inventory[4].name }} Findings</th>  
+                            <th *ngIf="diagnostic.inventory.length > 5" class="user-added-head3 add-spacing">{{ diagnostic.inventory[5].name }} Findings</th> 
+                            <th *ngIf="diagnostic.inventory.length > 6" class="user-added-head4">{{ diagnostic.inventory[6].name }} Findings</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="add-spacing">
+                                <app-edit [(dataModel)]="sc.peopleFindings" [richText]="true" [bulletsOnly]="true" [disable]="!editable" placeholder=""></app-edit>
+                            </td>
+                            <td class="add-spacing">
+                                <app-edit [(dataModel)]="sc.processFindings" [richText]="true" [bulletsOnly]="true" [disable]="!editable" placeholder=""></app-edit>
+                            </td>
+                            <td class="add-spacing">
+                                <app-edit [(dataModel)]="sc.technologyFindings" [richText]="true" [bulletsOnly]="true" [disable]="!editable" placeholder=""></app-edit>
+                            </td>
+                            <td *ngIf="diagnostic.inventory.length > 3" class="add-spacing">
+                                <app-edit [(dataModel)]="sc.userAddedFindings1" [richText]="true" [bulletsOnly]="true" [disable]="!editable" placeholder=""></app-edit>
+                            </td>
+                            <td *ngIf="diagnostic.inventory.length > 4" class="add-spacing"> 
+                                <app-edit [(dataModel)]="sc.userAddedFindings2" [richText]="true" [bulletsOnly]="true" [disable]="!editable" placeholder=""></app-edit>
+                            </td>
+                            <td *ngIf="diagnostic.inventory.length > 5" class="add-spacing"> 
+                                <app-edit [(dataModel)]="sc.userAddedFindings3" [richText]="true" [bulletsOnly]="true" [disable]="!editable" placeholder=""></app-edit>
+                            </td>
+                            <td *ngIf="diagnostic.inventory.length > 6"> 
+                                <app-edit [(dataModel)]="sc.userAddedFindings4" [richText]="true" [bulletsOnly]="true" [disable]="!editable" placeholder=""></app-edit>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngFor="let cap of sc.capabilities">
+            <div class="cap-numbering">
+                <table class="cap-head table table-bordered helvetica bold">
+                    <thead>
+                        <tr>
+                            <th>
+                                CAP {{ cap.capabilityId }}
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="cap-wrap">
+                <!-- SECTION B -->
+                <div class="cap-sum">
+                    <table class="table table-bordered helvetica">
+                        <thead class="cap-head">
+                            <tr>
+                                <th class="cap-name">{{ cap.title }}</th>
+                                <th class="cap-mat">
+                                    <div class="capmat-wrap">
+                                        <mat-select #dd *ngIf="editable" [(value)]="cap.maturity" (selectionChange)="updateMaturity(cap, sc)" title="Click to change">
+                                            <mat-option *ngFor="let mat of [0, 25, 50, 75, 100]" value="{{ mat }}">
+                                                <img class="harvey big-icon" src="{{ getBallForMaturity(mat) }}">
+                                            </mat-option>
+                                        </mat-select>
+                                        <img #hb class="harvey big-icon" [src]="getBallForMaturity(cap.maturity)">
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="key-evidence">
+                                <th colspan="2">Key Evidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                   <app-edit [(dataModel)]="cap.keyEvidence" placeholder="" [disable]="!editable" [richText]="true" [bulletsOnly]="true" ></app-edit>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- SECTION C -->
+                <div class="mat-wrap">
+                    <table #mattable class="table table-bordered helvetica">
+                        <thead class="subhead">
+                            <tr *ngIf="!diagnostic.isHarveyBall">
+                                <th>Maturity Indicator</th>
+                                <th *ngFor="let number of [0,2,4]"><img class="harvey big-icon" src="assets/icons/harveybw{{number}}.png"></th>
+                            </tr>
+                            <tr *ngIf="diagnostic.isHarveyBall">
+                                <th>Maturity Indicator</th>
+                                <th *ngFor="let number of [0,1,2,3,4]"><img class="harvey big-icon" src="assets/icons/harveybw{{number}}.png"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngIf="!diagnostic.isHarveyBall">
+                          <tr *ngFor="let q of cap.questions"> 
+                                <td class="scorecard-question">
+                                   <app-edit [(dataModel)]="q.maturityIndicator" [disable]="!editable" [textarea]="true" placeholder="" ></app-edit>  
+                                </td>
+                                <td *ngFor="let item of [0,1,2]; let i = index"   class="matur-cell" [class.matur-selected]="isSelected(i, q)">
+                                    <app-edit [(dataModel)]="q.harveyBallText[i]" [disable]="!editable" [textarea]="true" placeholder="" ></app-edit>
+                                </td>
+                          </tr> 
+                        </ng-container> 
+                        <ng-container *ngIf="diagnostic.isHarveyBall">
+                            <tr *ngFor="let q of cap.questions"> 
+                                  <td class="scorecard-question">
+                                     <app-edit [(dataModel)]="q.maturityIndicator" [disable]="!editable" [textarea]="true" placeholder="" ></app-edit>  
+                                  </td>
+                                  <td *ngFor="let item of [0,1,2,3,4]; let i = index"   class="matur-cell" [class.matur-selected]="isSelected(i, q)"> 
+                                      <app-edit [(dataModel)]="q.harveyBallText[i]" [disable]="!editable" [textarea]="true" placeholder="" ></app-edit>
+                                  </td> 
+                            </tr> 
+                          </ng-container> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

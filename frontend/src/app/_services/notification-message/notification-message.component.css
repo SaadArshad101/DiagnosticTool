@@ -1,0 +1,25 @@
+.icon {
+    width: 25px;
+    height: 25px;
+}
+
+.snack-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data {
+    font-size: 18.2px;
+}
+
+.action {
+    font-size: 14px;
+}
+
+::ng-deep .mat-snack-bar-container {
+    background: #D3D3D3;
+    color: black;
+    padding: 4px 10px;
+}

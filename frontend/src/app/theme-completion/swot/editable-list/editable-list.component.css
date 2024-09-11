@@ -1,0 +1,61 @@
+td {
+    font-family: "Oswald", sans-serif;
+    border-bottom: 1px solid #ebebeb;
+    background-color: #ffffff;
+}
+
+.title {
+    background-color: #263745;
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.entry {
+    font-family: "Oswald", sans-serif;
+    border-bottom: 1px solid #ebebeb;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.text-input {
+    font-family: "Oswald", sans-serif;
+    border-bottom: 1px solid #ebebeb;
+    padding: 10px;
+    padding-left: 5px;
+    background-color: #ffffff;
+}
+
+div {
+    word-wrap : break-word;
+}
+
+.icon-column {
+    width: 10%;
+}
+
+table {
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.center {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+th {
+    background-color: #263745;
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.plus {
+    padding: 5px;
+}

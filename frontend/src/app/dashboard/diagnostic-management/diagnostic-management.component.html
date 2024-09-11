@@ -1,0 +1,248 @@
+<div
+  class="container-fluid horizontal-margin"
+  *ngIf="user && currentTab === 'Diagnostics' && diagnostics"
+>
+  <!-- <div id="spread-out"> -->
+  <section id="diagnostic-pagination">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Search"
+        [(ngModel)]="searchText"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <table>
+      <tr>
+        <td class="paddingBetweenCols">
+          <mat-form-field>
+            <mat-label>Items per page</mat-label>
+            <mat-select [(ngModel)]="pageSize">
+              <mat-option [value]="5">5</mat-option>
+              <mat-option [value]="10">10</mat-option>
+              <mat-option [value]="25">25</mat-option>
+              <mat-option [value]="50">50</mat-option>
+              <mat-option [value]="100">100</mat-option>
+              <mat-option [value]="999999999">ALL</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td class="paddingBetweenCols bottom-padding">
+          <div
+            *ngIf="
+              (diagnostics | deepFilter : searchText : filteredElements)
+                .length == 0
+            "
+          >
+            0 - 0 of 0
+          </div>
+          <div
+            *ngIf="
+              (diagnostics | deepFilter : searchText : filteredElements)
+                .length > 0
+            "
+          >
+            {{ (currentPage - 1) * pageSize + 1 }} -
+            {{
+              math.min(
+                currentPage * pageSize,
+                (diagnostics | deepFilter : searchText : filteredElements)
+                  .length
+              )
+            }}
+            of
+            {{
+              (diagnostics | deepFilter : searchText : filteredElements).length
+            }}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <table class="table table-bordered helvetica">
+    <thead class="header-row">
+      <!-- <tr *ngIf="isTaker || isDesigner">
+        <th id="diagnostics-th" class="th-lg">Diagnostics</th>
+        <th id="description-th" class="th-lg">Description</th>
+        <th *ngIf="isDesigner" id="actions-th" class="th-lg">Actions</th>
+      </tr> -->
+      <!-- <tr *ngIf="isAdmin"> -->
+      <tr>
+        <th id="diagnostics-th" class="th-sm">Diagnostics</th>
+        <th id="users-th" class="th-sm">Users</th>
+        <th id="description-th" class="th-sm">Description</th>
+        <th id="actions-th" class="th-sm">Actions</th>
+        <th id="show-th" class="th-sm">Show For All Users</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+        *ngFor="
+          let diagnostic of diagnostics
+            | deepFilter : searchText : filteredElements
+            | slice : (currentPage - 1) * pageSize : currentPage * pageSize
+        "
+      >
+        <td>
+          <p>
+            <a
+              *ngIf="isTaker || isDesigner"
+              class="diag-link"
+              routerLink="../diagnostic/{{ diagnostic.id }}"
+            >
+              {{ diagnostic.title }}
+            </a>
+            <a
+              *ngIf="isAdmin"
+              class="diag-link"
+              routerLink="../diagnostic/{{ diagnostic.id }}/adminPreview"
+            >
+              {{ diagnostic.title }}
+            </a>
+          </p>
+        </td>
+        <td>
+          <div>
+            <b>Owners: </b>
+          </div>
+          <div *ngFor="let id of diagnostic.owners">
+            {{ userMap.get(id) }}
+          </div>
+          <div>
+            <b>Diagnostic Takers: </b>
+          </div>
+          <div *ngFor="let data of diagnostic.userData">
+            {{ userMap.get(data.userId) }}
+          </div>
+        </td>
+        <td>
+          <p>{{ diagnostic.text }}</p>
+        </td>
+        <!-- <td *ngIf="isAdmin || isDesigner" class="text-nowrap"> -->
+        <td class="text-nowrap">
+          <div>
+            <img
+              class="icon"
+              src="assets/icons/edit.svg"
+              routerLink="../diagnostic/{{ diagnostic.id }}/designer-landing"
+              matTooltip="Edit diagnostic"
+            />
+            <img
+              class="icon"
+              src="assets/icons/report.svg"
+              routerLink="../report/{{ diagnostic.id }}"
+              matTooltip="View report"
+            />
+            <img
+              class="icon"
+              src="assets/icons/histogram.svg"
+              routerLink="../analytics/{{ diagnostic.id }}"
+              matTooltip="View Aggregated Results"
+            />
+            <img
+              class="icon"
+              src="assets/icons/export.svg"
+              (click)="exportDiagnostic(diagnostic)"
+              matTooltip="Export diagnostic"
+            />
+            <img
+              class="icon"
+              src="assets/icons/add-button.svg"
+              (click)="addDiagnosticToTemplateBank(diagnostic)"
+              matTooltip="Add diagnostic to template bank"
+            />
+            <img
+              class="icon"
+              src="assets/icons/share.svg"
+              matTooltip="Share"
+              #pop="ngbPopover"
+              [ngbPopover]="share"
+              [autoClose]="false"
+              (click)="initPopover(pop)"
+            />
+            <img
+              *ngIf="
+                !defaultDiagnosticIds.includes(diagnostic.id) &&
+                diagnostic.owners.includes(user.id)
+              "
+              class="icon"
+              src="assets/icons/trash.svg"
+              (click)="removeDiagnostic(diagnostic)"
+              matTooltip="Delete diagnostic"
+            />
+            <img
+              *ngIf="
+                !defaultDiagnosticIds.includes(diagnostic.id) &&
+                !diagnostic.owners.includes(user.id)
+              "
+              class="icon"
+              src="assets/icons/trash.svg"
+              (click)="removeFromDashboard(diagnostic)"
+              matTooltip="Delete diagnostic"
+            />
+            <ng-template #share>
+              <app-share-popover
+                [diagnostic]="diagnostic"
+                (closeEmitter)="closePopover()"
+              ></app-share-popover>
+            </ng-template>
+          </div>
+        </td>
+        <!-- <td *ngIf="isAdmin"> -->
+        <td>
+          <div id="checkboxTD">
+            <mat-checkbox
+              (click)="handleDefaultDiagnosticCheckbox(diagnostic)"
+              [checked]="defaultDiagnosticIds.includes(diagnostic.id)"
+              matTooltip="Add diagnostic to default diagnostics"
+            >
+            </mat-checkbox>
+          </div>
+        </td>
+      </tr>
+      <!-- <tr *ngIf="isAdmin || isDesigner"> -->
+      <tr>
+        <td colspan="5">
+          <div style="display: inline">
+            <button
+              class="mat-button button-padding"
+              (click)="openTemplateBankDialog()"
+            >
+              Add Diagnostic from Template
+            </button>
+            &nbsp;
+            <button class="mat-button button-padding" (click)="addDiagnostic()">
+              Add Blank Diagnostic
+            </button>
+            &nbsp;
+          </div>
+          <div style="float: right">
+            <button
+              class="mat-button button-padding"
+              (click)="openImportDialog()"
+            >
+              Import Diagnostic
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- We make sure the collection size is always at least one so that there is always at least one page -->
+  <div class="center">
+    <ngb-pagination
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      [rotate]="true"
+      [collectionSize]="
+        (diagnostics | deepFilter : searchText : filteredElements).length || 1
+      "
+      [maxSize]="maxSize"
+    >
+    </ngb-pagination>
+  </div>
+</div>

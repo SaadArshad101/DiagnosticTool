@@ -1,0 +1,90 @@
+.header-row {
+    background-color: #263646;
+    color: white;
+    font-family: "Oswald", sans-serif;
+    height: 48px;
+}
+
+.center {
+    text-align: center;
+}
+
+.top {
+    vertical-align: top;
+}
+
+.rec-icon {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    padding: 2px;
+}
+
+.rec-icon-0 {
+    background: url('/assets/icons/inv0c.svg') no-repeat top center;
+    color: #FFFFFF;
+}
+
+.rec-icon-1 {
+    background: url('/assets/icons/inv1c.svg') no-repeat top center;
+    color: #FFFFFF;
+}
+
+.rec-icon-2 {
+    background: url('/assets/icons/inv2c.svg') no-repeat top center;
+    color: #FFFFFF;
+    padding: 4px;
+}
+
+.rec-icon-3 {
+    background: url('/assets/icons/inv3c.svg') no-repeat top center;
+    color: #FFFFFF;
+}
+
+.rec-icon-4 {
+    background: url('/assets/icons/inv4c.svg') no-repeat top center;
+    color: #FFFFFF;
+}
+
+.rec-icon-5 {
+    background: url('/assets/icons/inv5c.svg') no-repeat top center;
+    color: #FFFFFF;
+}
+
+.rec-icon-6 {
+    background: url('/assets/icons/inv6c.svg') no-repeat top center;
+    color: #FFFFFF;
+}
+
+.table-ir th, .table-ir td {
+    padding: 6px 4px;
+    vertical-align: middle;
+}
+
+.table-ir th.top {
+    vertical-align: top;
+}
+
+.ir-title {
+    font-family: "oswald";
+    font-size: 20px;
+    padding-top: 13px;
+}
+
+.gray {
+    background-color: gray;
+}
+
+.harvey {
+    width: 36px;
+    height: 36px;
+}
+
+.impl-wrap {
+    margin: 20px 8.33%;
+}
+
+.str-label {
+    font-size: 0.8em;
+}

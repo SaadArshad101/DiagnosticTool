@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="41px" height="41px" viewBox="0 0 41 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>btn - next question</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Question-Options" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Questions---Desktop-v3---Option-1" transform="translate(-115.000000, -514.000000)">
+            <g id="//-QUESTION-//" transform="translate(115.000000, 283.000000)">
+                <g id="::-arrows" transform="translate(0.000000, 231.000000)">
+                    <g id="btn---next-question">
+                        <g id="btn" transform="translate(0.500000, 0.500000)" fill="#C0C0C0">
+                            <circle id="Oval" cx="20" cy="20" r="20"></circle>
+                        </g>
+                        <g id="arrow-icon" transform="translate(13.000000, 13.000000)" fill="#FFFFFF">
+                            <path d="M13.9873173,6.40230516 L3.26705879,6.40230516 L7.44133668,1.87980241 C7.83628291,1.45170143 7.83628291,0.760153677 7.44133668,0.321075741 C7.04537776,-0.107025247 6.40434964,-0.107025247 6.00839073,0.321075741 L0.279644961,6.53402854 C0.0376138067,6.7974753 -0.0383373922,7.1597146 0.0173601537,7.5 C-0.0383373922,7.8402854 0.0376138067,8.2025247 0.279644961,8.46597146 L6.00839073,14.6789243 C6.40434964,15.1070252 7.04537776,15.1070252 7.44133668,14.6789243 C7.83628291,14.2508233 7.83628291,13.5482986 7.44133668,13.1201976 L3.26705879,8.59769484 L13.9873173,8.59769484 C14.5463182,8.59769484 15,8.10373216 15,7.5 C15,6.89626784 14.5463182,6.40230516 13.9873173,6.40230516 L13.9873173,6.40230516 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

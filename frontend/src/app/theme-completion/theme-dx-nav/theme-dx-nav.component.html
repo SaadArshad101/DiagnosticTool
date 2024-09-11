@@ -1,0 +1,15 @@
+<div class="dx-progress-container" *ngIf="diagnostic">
+  <h2>Progress</h2>
+  <ng-container *ngFor="let theme of diagnostic.themes">
+    <div class="text theme-block" (click)="setCurrentTheme(theme.id)" [class.current]="theme.id === getCurrentThemeId()" 
+    [class.default]="theme.id != getCurrentThemeId()"> 
+      <div *ngIf="theme.id !== getCurrentThemeId()"><span class="arrow1">&#9654;</span> <span class="theme-title">{{theme.title}}</span></div>
+      <div *ngIf="theme.id === getCurrentThemeId()"><span class="arrow2">&#9660;</span> <span class="theme-title">{{theme.title}}</span></div>
+        <span *ngFor="let obj of getFlattenedObjectsOfTheme(theme); let i = index" class="text list-question" [class.current]="isQuestionCurrent(obj.question.id)"
+        [class.completed]="isQuestionCompleted(obj.question)" [class.uncompleted]="!isQuestionCompleted(obj.question)"
+        [class.disabled]="isQuestionDisabled(obj.question.id)" (click)="selectQuestion(obj.question)" [ngStyle]="{'margin-left.px': 10*(obj.depth-1)}">{{ obj.numbering }} {{ obj.question.text }}</span>
+    </div>
+  </ng-container>
+</div>
+
+<router-outlet></router-outlet>

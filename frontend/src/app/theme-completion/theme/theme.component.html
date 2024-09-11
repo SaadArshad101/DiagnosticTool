@@ -1,0 +1,21 @@
+<div *ngIf="diagnostic && !diagnostic.isDX">
+<app-navigation *ngIf="diagnostic" [middleText]="diagnostic.title"></app-navigation>
+
+  <div *ngIf=diagnostic class="diagnostic-container">
+    <app-theme-nav [diagnostic]=diagnostic (themeIdEmitter)=newThemeSelected($event) (reportClickedEmitter)="navigateToReport($event)"></app-theme-nav>
+    <app-theme-question-nav [diagnostic]=diagnostic [flattenedQuestionMap]=flattenedQuestionMap 
+            [disabledQuestionIds]=disabledQuestionIds (questionEmitter)=newQuestionSelected($event)></app-theme-question-nav>
+    <!-- <img src="../../../assets/icons/notes.svg" class="notes-button" (click)="openDiagnosticNotesDialog()" /> -->
+    <button class="mat-button notes-button" (click)="openDiagnosticNotesDialog()">General Notes</button>
+    <div class="questions-container">
+      <app-theme-question-display [diagnostic]=diagnostic [flattenedQuestionMap]=flattenedQuestionMap [disabledQuestionIds]=disabledQuestionIds
+      (diagnosticEmitter)=diagnosticUpdate($event) (themeIdEmitter)=newThemeSelected($event) 
+      (disabledQuestionIdsEmitter)=disabledQuestionIdsChanged($event)></app-theme-question-display>
+    </div>
+    <app-swot [diagnostic]=diagnostic (swotEmitter)=diagnosticUpdate($event)></app-swot>
+  </div>
+</div>
+
+<div *ngIf="diagnostic && diagnostic.isDX">
+  <app-theme-dx></app-theme-dx>
+</div>

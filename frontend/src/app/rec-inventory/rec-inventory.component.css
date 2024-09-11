@@ -1,0 +1,276 @@
+.col-rid {
+  width: 10%;
+  text-align: center;
+}
+
+.col-rec {
+  width: 40%;
+}
+
+.col-urg {
+  width: 10%;
+  text-align: center;
+}
+
+.col-imp {
+  width: 10%;
+  text-align: center;
+}
+
+.col-mat {
+  width: 10%;
+  text-align: center;
+}
+
+.col-ccp {
+  width: 10%;
+  text-align: center;
+}
+
+.col-add {
+  width: 10%;
+  border: none;
+  white-space: nowrap;
+}
+
+.add-tab-button {
+  border: none;
+  background-color: #fff;
+  color: #c0c1c3;
+}
+
+.rec-tab-0,
+::ng-deep app-rec-inventory .mat-tab-label-active:nth-child(1) {
+  background-color: #b44db7;
+  /* background-color: #00b050; original color */
+  color: #ffffff !important;
+}
+
+.rec-tab-1,
+::ng-deep app-rec-inventory .mat-tab-label-active:nth-child(2) {
+  background-color: #5b4db7;
+  /* background-color: #ffc000; original color*/
+  color: #ffffff !important;
+}
+
+.rec-tab-2,
+::ng-deep app-rec-inventory .mat-tab-label-active:nth-child(3) {
+  background-color: #42adc7;
+  /* background-color: #800080; original color*/
+  color: #ffffff !important;
+}
+
+.rec-tab-3,
+::ng-deep app-rec-inventory .mat-tab-label-active:nth-child(4) {
+  background-color: #81d152;
+  /* background-color: #4472c4; original color*/
+  color: #ffffff !important;
+}
+
+.rec-tab-4,
+::ng-deep app-rec-inventory .mat-tab-label-active:nth-child(5) {
+  background-color: #e2e050;
+  /* background-color: #3ea6c1; original color*/
+  color: #ffffff !important;
+}
+
+.rec-tab-5,
+::ng-deep app-rec-inventory .mat-tab-label-active:nth-child(6) {
+  background-color: #ff9d4f;
+  /* background-color: #ef101d; original color*/
+  color: #ffffff !important;
+}
+
+.rec-tab-6,
+::ng-deep app-rec-inventory .mat-tab-label-active:nth-child(7) {
+  background-color: #ff5347;
+  /* background-color: #ac9353; original color*/
+  color: #ffffff !important;
+}
+
+.rec-tab-add,
+::ng-deep app-rec-inventory {
+  width: 50%;
+  /* background-color: #ac9353; */
+  color: #ffffff !important;
+}
+
+.add-button-icon {
+  color: #c0c1c3;
+}
+
+::ng-deep app-rec-inventory .mat-tab-label-active {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+::ng-deep app-rec-inventory .mat-tab-body-content {
+  margin: 0 !important;
+  overflow-y: hidden;
+}
+
+::ng-deep app-rec-inventory .mat-tab-body-wrapper {
+  margin-top: -2px;
+}
+
+::ng-deep app-rec-inventory .mat-tab-header {
+  border: none !important;
+}
+
+.rec-header {
+  font-weight: bold;
+  font-weight: 1.8em;
+  padding: 1px;
+}
+
+table input {
+  width: 100%;
+}
+
+.mat-indicator-outer {
+  position: relative;
+}
+
+.mat-indicator-inner {
+  position: absolute;
+  top: -32px;
+  left: 20%;
+}
+
+.inv-icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin: -2px 0 0 6px;
+}
+
+.editor-wrap {
+  display: inline-block;
+  width: 400px;
+  margin: 8px 12px;
+}
+
+.remove-button {
+  fill: darkred;
+}
+
+mat-select,
+mat-option {
+  cursor: pointer;
+}
+
+::ng-deep mat-option {
+  text-align: center;
+}
+
+.insert-button,
+.remove-button {
+  width: 22px;
+  height: 22px;
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.big-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.drag-rec {
+  width: 16px;
+  height: 16px;
+  cursor: move;
+}
+
+.submit-rec {
+  cursor: pointer;
+  width: 100%;
+}
+
+.col-rid {
+  white-space: nowrap;
+}
+
+.col-rid app-edit {
+  display: inline-block;
+  width: 75%;
+  margin-left: 6px;
+}
+
+::ng-deep .col-rid .buttons-outer {
+  margin-left: 100px;
+}
+
+.hide {
+  display: none;
+}
+
+.table-inv th,
+.table-inv td {
+  padding: 6px 4px;
+  vertical-align: middle;
+}
+
+.table.table-inv {
+  margin-bottom: 20px;
+}
+
+.rec-wrap {
+  margin: 20px 8.33%;
+}
+
+.rec-icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  padding: 2px;
+}
+
+.rec-icon-0 {
+  background: url("/assets/icons/inv0c.svg") no-repeat top center;
+  color: #ffffff;
+}
+
+.rec-icon-1 {
+  background: url("/assets/icons/inv1c.svg") no-repeat top center;
+  color: #000000;
+}
+
+.rec-icon-2 {
+  background: url("/assets/icons/inv2c.svg") no-repeat top center;
+  color: #ffffff;
+  padding: 4px;
+}
+
+.rec-icon-3 {
+  background: url("/assets/icons/inv3c.svg") no-repeat top center;
+  color: #ffffff;
+}
+
+.rec-icon-4 {
+  background: url("/assets/icons/inv4.svg") no-repeat top center;
+  color: #ffffff;
+}
+
+.rec-icon-5 {
+  background: url("/assets/icons/inv5.svg") no-repeat top center;
+  color: #ffffff;
+}
+
+.rec-icon-6 {
+  background: url("/assets/icons/inv6.svg") no-repeat top center;
+  color: #ffffff;
+}
+
+.ri-title {
+  font-family: "oswald";
+  font-size: 20px;
+  padding-top: 13px;
+}
+
+::ng-deep .mat-option img.harvey {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,287 @@
+table {
+  width: 100%;
+  margin: auto;
+}
+.btn-radar {
+  background-color: #263745;
+  color: white;
+}
+.btn-bar {
+  background-color: #263745;
+  color: white;
+}
+
+table,
+td {
+  border: 1px solid #979797;
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #000000;
+  padding: 15px;
+  vertical-align: top;
+}
+
+th {
+  padding: 15px;
+  background-color: #263745;
+  font-family: "Oswald", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.question-header {
+  width: 30%;
+}
+
+.graph-header {
+  width: 70%;
+}
+
+tr {
+  width: 100%;
+  font-family: "Oswald", sans-serif;
+}
+
+mat-expansion-panel {
+  width: 80%;
+  max-width: 80%;
+  margin: auto;
+  padding: 1px;
+}
+
+mat-expansion-panel .notes-panel {
+  width: 100%;
+  max-width: 100%;
+}
+
+.notes-expanded {
+  padding-bottom: 20px;
+}
+
+::ng-deep .white-arrow > .mat-expansion-indicator:after {
+  color: white;
+}
+
+.footer-spacing {
+  margin-top: 5%;
+}
+
+::ng-deep footer {
+  z-index: 99;
+}
+
+mat-expansion-panel-header {
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 48px;
+  height: auto !important;
+  align-content: center;
+}
+
+mat-expansion-panel-header {
+  background-color: #263745 !important;
+}
+
+mat-panel-title {
+  color: white;
+}
+
+h2 {
+  margin: 1%;
+}
+
+table {
+  margin: 1%;
+}
+
+.mat-toolbar {
+  background-color: #00a6b5;
+  color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 48px;
+  height: auto !important;
+  align-content: center;
+  width: 100%;
+}
+
+.question-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  display: block;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.question-box {
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  width: 92%;
+}
+
+.question-numbering {
+  width: 8%;
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.question-title {
+  width: 95%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.question-bubble {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: rgb(38, 55, 69);
+  margin: 2px 8% 0 0;
+  width: 45px;
+  line-height: 45px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.question-pointer {
+  display: inline-block;
+  margin: -10px 0 0 2px;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border-right: solid 20px #00a6b5;
+  border-bottom: solid 10px transparent;
+  border-top: solid 10px transparent;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.row-padding {
+  padding-bottom: 2px;
+}
+
+.center-vertically {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ellipsis-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .theme-tab .mat-expansion-panel-body {
+  padding: 0;
+}
+
+.legend {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 16px;
+}
+
+.nav-button {
+  float: right;
+  padding-left: 20px;
+  padding-right: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  height: 51px;
+}
+
+::ng-deep .mat-tab-label {
+  cursor: pointer;
+  font-family: oswald;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.58;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  color: #c0c1c3;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-tab-label.mat-tab-label-active {
+  color: #ffffff;
+  background-color: #263745;
+}
+
+::ng-deep .mat-ink-bar {
+  transition: none !important;
+}
+
+.report-button {
+  position: absolute;
+  right: 0;
+  z-index: 9997;
+}
+
+.dd-dragel {
+  color: red;
+}
+
+.report {
+  text-align: center;
+}
+
+.strategic-considerations {
+  margin-bottom: 100px;
+}
+
+:host #fit /deep/ .ql-container .ql-editor {
+  min-height: 0px;
+}
+
+:host #font-match /deep/ .ql-container .ql-editor {
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #000000;
+}
+.report-results {
+  display: flex;
+}
+
+.report-cloud {
+  display: flex;
+  flex: 1;
+}
+
+.report-radar {
+  width: 300%;
+}

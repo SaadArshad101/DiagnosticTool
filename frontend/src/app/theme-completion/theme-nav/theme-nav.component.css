@@ -1,0 +1,114 @@
+.spaced-out {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.default {
+    color: #c0c1c3;
+}
+
+.current {
+    color:white;
+    background-color: #263745;
+}
+
+table, td, tr {
+    border: 1px black;
+}
+
+.nav-button {
+  padding-left: 20px;
+  padding-right: 20px;
+  white-space: nowrap;
+}
+
+.text {
+    font-family: oswald;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.58;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.nav-flex-container{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  justify-content: left ;
+}
+
+
+.flex-item {
+  text-align: center;
+}
+
+.report-button {
+  margin-left: auto;
+}
+
+.theme-page-off {
+  display: none;
+}
+
+.theme-arrow-hide {
+  visibility: hidden;
+}
+
+#nav-outer-wrap {
+  width: 85%;
+  overflow: hidden;
+}
+
+#nav-outer-wrap.nav-full-width {
+  width: 100%;
+}
+
+#nav-inner-wrap {
+  white-space: nowrap;
+}
+
+#nav-inner-wrap div.text {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.nav-scroll {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.nav-fade {
+  width: 60px;
+  height: 100%;
+  position: relative;
+  top: -100%;
+}
+
+#nav-fade-left {
+  float: left;
+  background-image: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+#nav-fade-right {
+  float: right;
+  background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+}
+
+.no-pag .nav-fade {
+  display: none;
+}
+
+#theme-nav-bar {
+  white-space: nowrap;
+}

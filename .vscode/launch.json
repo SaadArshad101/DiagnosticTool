@@ -1,0 +1,22 @@
+// VSCode uses port 9229 to debug, see the Debug Console for output after launching the application.
+// Be sure to uncomment/comment out the relevent code in the Dockerfile and server.sh
+// If getting URL rejection errors, ask CSN helpdesk to unblock those requests.
+// Relevent link to help debug: https://www.section.io/engineering-education/how-to-debug-a-nodejs-application-running-in-a-docker-container/
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Docker: Attach to Node",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ]
+    }
+  ]
+}

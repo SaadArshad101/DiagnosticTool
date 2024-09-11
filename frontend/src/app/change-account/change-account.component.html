@@ -1,0 +1,25 @@
+<app-navigation middleText="Change Accounts"></app-navigation>
+<div>
+    <div *ngFor="let email of emails" class="change-accounts-card-wrapper">
+        <mat-card>
+            <mat-card-header>
+                <div mat-card-avatar class="profile-icon"></div>
+                <mat-card-title>{{ getFirstName(email) }} {{ getLastName(email) }}</mat-card-title>
+                <mat-card-subtitle>{{ email }}</mat-card-subtitle>
+                <div class="left-side">
+                    <div *ngIf="!removeMode">
+                        <button mat-button *ngIf="!isCurrentlyLoggedIn(email) && !isTokenExpired(email)" (click)="switchAccount(email)">Switch account</button>
+                        <button mat-button *ngIf="isTokenExpired(email)" routerLink="/login">Login again</button>
+                        <button mat-button *ngIf="isCurrentlyLoggedIn(email)">Current account</button>
+                    </div>
+                    <div *ngIf="removeMode">
+                        <button mat-button *ngIf="!isCurrentlyLoggedIn(email)" (click)="removeAccountFromSession(email)">Remove account</button>
+                        <button mat-button *ngIf="isCurrentlyLoggedIn(email)">Current account</button>
+                    </div>
+                </div>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    <button *ngIf="!removeMode" mat-button (click)="removeMode = true">Remove an account</button>
+    <button *ngIf="removeMode" mat-button (click)="removeMode = false">Switch accounts</button>
+</div>

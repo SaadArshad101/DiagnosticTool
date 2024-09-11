@@ -1,0 +1,115 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+@import "quill-styles.css";
+
+.force-to-bottom {
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+}
+
+.noborder {
+    border:none;
+}
+
+.helvetica
+{
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+   font-size: 18.2px;
+}
+
+table {
+  word-break: normal;
+}
+
+.break {
+  word-break: break-all;
+}
+
+
+.mat-button {
+  height: 100%;
+  object-fit: contain;
+  background-color: #00a6b5;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 18.2px; 
+  font-style: normal;
+  font-stretch: 100%;
+  line-height: 26px;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  border: 0;
+}
+
+mat-cell:first-child,
+mat-header-cell:first-child,
+mat-footer-cell:first-child {
+    padding-left: 0px !important;
+}
+
+mat-cell:last-child,
+mat-footer-cell:last-child,
+mat-header-cell:last-child {
+    padding-right: 0px !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #00a6b5;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple{
+  background-color: #00a6b5;
+}
+
+.example-radio-button.mat-radio-checked .mat-radio-inner-circle {
+  transform: scale(1);
+}
+
+.diagnostic-container{
+  background-image: linear-gradient(to bottom, #fff, #fff 35.7%, whitesmoke 0%, whitesmoke 49.3%, whitesmoke 49.3%);
+}
+.questions-container {
+  background-image: linear-gradient(to bottom, #fff, #fff 50%, whitesmoke 0%, whitesmoke 50%, whitesmoke 50%);
+    /*linear-gradient(to bottom, #fff, #fff 45%, whitesmoke 55%, whitesmoke 55%, whitesmoke 55%);*/
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.dd-dragel .ngx-nestable-hidden,
+.dd-dragel button {
+	visibility: hidden
+}
+
+.container.shadow.top-buffer{
+  background: white;
+}
+
+button:focus {
+  outline: 0px;
+}
+
+.sticky {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px; /* Set the fixed height of the footer here */
+  line-height: 40px; /* Vertically center the text there */
+  background-color: #263745;
+}
+
+.vl {
+  border-left: 2px solid whitesmoke;
+  height: 20px;
+}
+
+.harvey {
+  width: 30px;
+  height: 30px;
+}
+
+.mat-tab-header, .mat-tab-nav-bar {
+  border-bottom: none;
+}

@@ -1,0 +1,22 @@
+export const environment = {
+  production: true,
+  apiUrl: window.location.origin + '/api',
+  swotEndpoint: 'swot',
+  answerEndpoint: 'answer',
+  questionEndpoint: 'question',
+  diagnosticEndpoint: 'diagnostic',
+  themeEndpoint: 'theme',
+  responseEndpoint: 'response',
+  rubricEndpoint: 'rubric',
+  userEndpoint: 'user',
+  loginEndpoint: 'login',
+  loginSAMLEndpoint: 'loginSAML',
+  templateEndpoint: 'template',
+  defaultDiagnosticEndpoint: 'defaultDiagnostic',
+  tagEndpoint: 'tag',
+  userEmailsAndNamesEndpoint: 'userId',
+  addDiagnosticToUserEndpoint: 'addDiagnosticToUser',
+  removeDiagnosticFromUserEndpoint: 'removeDiagnosticFromUser',
+  logoutTimeout: 3600,
+  socketUrl: 'wss://' + window.location.hostname + ':8080'
+};

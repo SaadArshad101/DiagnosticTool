@@ -1,0 +1,40 @@
+<app-navigation></app-navigation>
+<section id="dashboard-nav">
+  <div class="flex" *ngIf="isAdmin">
+    <div class="nav-flex-container">
+      <div
+        id="diagnostics-tab"
+        class="text spaced-out flex-item default click"
+        [class.current]="currentTab === 'Diagnostics'"
+        (click)="currentTab = 'Diagnostics'"
+      >
+        <span class="word-wrap"> Diagnostics </span>
+      </div>
+      <div
+        id="templates-tab"
+        class="text spaced-out flex-item default click"
+        [class.current]="currentTab === 'Templates'"
+        (click)="currentTab = 'Templates'"
+      >
+        <span class="word-wrap"> Templates </span>
+      </div>
+      <div
+        id="users-tab"
+        class="text spaced-out flex-item default click"
+        [class.current]="currentTab === 'Users'"
+        (click)="currentTab = 'Users'"
+      >
+        <span class="word-wrap"> Users </span>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="spacing"></div>
+
+<app-template-management
+  *ngIf="currentTab === 'Templates'"
+></app-template-management>
+<app-user-management *ngIf="currentTab === 'Users'"></app-user-management>
+<app-diagnostic-management
+  *ngIf="currentTab === 'Diagnostics'"
+></app-diagnostic-management>

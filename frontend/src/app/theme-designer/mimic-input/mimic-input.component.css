@@ -1,0 +1,19 @@
+.floating-label-mimic {
+  color: rgba(0,0,0,.54);
+  font-size: 13px;
+  padding-bottom: 1px;
+}
+
+.content {
+    padding-bottom: 21.75px;
+}
+
+.empty-label {
+  color: rgba(0,0,0,.54);
+  font-size: 18.2px;
+  padding-top: 15px;
+}
+
+.empty-content {
+    padding-bottom: 21.75px;
+}

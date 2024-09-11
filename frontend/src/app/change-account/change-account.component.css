@@ -1,0 +1,26 @@
+.change-accounts-card-wrapper {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    min-width: 50%;
+}
+
+.mat-button {
+    min-width: 170px;
+}
+
+.profile-icon {
+    background-image: url("../../assets/icons/profile.svg");
+    background-size: cover;
+    height: 60px;
+    width: 60px;
+}
+
+.mat-card {
+    width: 50%;
+    margin-bottom: 1px;
+}
+
+.left-side {
+    margin-left: auto;
+}

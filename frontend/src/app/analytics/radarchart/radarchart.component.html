@@ -1,0 +1,110 @@
+<div class="chart-container container">
+  <div class="row">
+    <div *ngIf="this.current_clicked_index == -1" class="col-sm-auto">
+      <p>Word Cloud</p>
+      <angular-d3-cloud
+        [data]="this.wordCloudText"
+        [width]="215"
+        [height]="340"
+        [padding]="5"
+        font="serif"
+        [rotate]="0"
+        [autoFill]="true"
+        [fillMapper]="customFillMapper"
+      >
+      </angular-d3-cloud>
+    </div>
+    <div *ngIf="this.current_clicked_index !== -1" class="col-sm-auto">
+      <p>Theme Word Cloud</p>
+      <angular-d3-cloud
+        [data]="this.wordCloudTextTheme"
+        [width]="215"
+        [height]="340"
+        [padding]="5"
+        font="serif"
+        [rotate]="0"
+        [autoFill]="true"
+        [fillMapper]="customFillMapper"
+      >
+      </angular-d3-cloud>
+    </div>
+    <canvas id="MyChart" class="col-sm-7 another-canvas">{{ chart }}</canvas>
+    <div class="col-sm-1" *ngIf="this.current_clicked_index >= 0">
+      <table class="table table-bordered table-small table-hover" id="table">
+        <thead>
+          <tr>
+            <th
+              colspan="2"
+              class="table-title"
+              style="
+                text-align: center;
+                background-color: #263745;
+                color: white;
+              "
+            >
+              {{ this.current_hovered_title }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of capability_map | keyvalue">
+            <td>{{ item.key }} ({{ item.value.length }})</td>
+            <td>{{ getAverageOfScores(item.value) }}%</td>
+          </tr>
+          <tr>
+            <td style="background-color: rgba(0, 166, 181, 0.2)">Total</td>
+            <td style="background-color: rgba(0, 166, 181, 0.2)">
+              {{ this.current_hovered_total_percentage }}%
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-2" *ngIf="this.current_clicked_index == -1">
+      <table class="table table-bordered table-small table-hover" id="table">
+        <thead>
+          <tr>
+            <th
+              colspan="2"
+              class="table-title"
+              style="
+                text-align: center;
+                background-color: #263745;
+                color: white;
+              "
+            >
+              Overall Scores
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let label of this.radarChartLabels; let i = index">
+            <td>{{ label }}</td>
+            <td>{{ this.radarChartData[i] }}%</td>
+          </tr>
+          <tr>
+            <td style="background-color: rgba(0, 166, 181, 0.2)">Total</td>
+            <td style="background-color: rgba(0, 166, 181, 0.2)">
+              {{ this.getAverageOfScores(this.averages) }}%
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div>
+      <h1 style="font-size: 27px">
+        <strong><u>Word Cloud</u></strong>
+      </h1>
+      <angular-d3-cloud
+        [data]="this.data"
+        [width]="500"
+        [height]="500"
+        [padding]="5"
+        font="serif"
+        [rotate]="0"
+        [autoFill]="true"
+      >
+      </angular-d3-cloud>
+    </div> -->
+  </div>
+</div>

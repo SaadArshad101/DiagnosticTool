@@ -1,0 +1,51 @@
+<div *ngIf="diagnostic" [class.impl-wrap]="enableCurLvl">
+    <h2 *ngIf="!enableCurLvl" class="ir-title" align="center">Implementation Roadmap</h2>
+    <table class="table-ir table table-bordered helvetica">
+        <thead class="header-row">
+            <tr>
+                <th class="center">
+                    <div *ngIf="enableCurLvl">
+                        {{ diagnostic.processLabel }}
+                    </div>
+                    <div *ngIf="!enableCurLvl">
+                        <app-edit [(dataModel)]="diagnostic.processLabel"></app-edit>
+                    </div>
+                    #
+                </th>
+                <th>Core&nbsp;Process</th>
+                <th *ngIf="enableCurLvl" class="center">Current<br />Level</th>
+                <th *ngFor="let i of [0, 1, 2, 3, 4]" class="center top">
+                    <img class="harvey" src="assets/icons/harveybw{{ i }}.png">
+                    <div *ngIf="!enableCurLvl" class="str-label">
+                        <app-edit [(dataModel)]="diagnostic.inventoryLabels[i]"></app-edit>
+                    </div>
+                    <div *ngIf="enableCurLvl">{{ diagnostic.inventoryLabels[i] }}</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let theme of diagnostic.themes; let i = index; trackBy: trackByFn">
+                <td class="center">{{ (i + 1) }}</td>
+                <td>{{ theme.title }}</td>
+                <td *ngIf="enableCurLvl" class="center">
+                    <img class="harvey" src="assets/icons/harveybw0.png" *ngIf="getPercent(i) < 25">
+                    <img class="harvey" src="assets/icons/harveybw1.png" *ngIf="getPercent(i) >= 25 && getPercent(i) < 50">
+                    <img class="harvey" src="assets/icons/harveybw2.png" *ngIf="getPercent(i) >= 50 && getPercent(i) < 75">
+                    <img class="harvey" src="assets/icons/harveybw3.png" *ngIf="getPercent(i) >= 75 && getPercent(i) < 100">
+                    <img class="harvey" src="assets/icons/harveybw4.png" *ngIf="getPercent(i) == 100">
+                </td>
+                <td *ngFor="let j of [0, 25, 50, 75, 100]" class="center" [class.gray]="enableCurLvl && getPercent(i) >= j">
+                    <ng-container *ngIf="!enableCurLvl || (getPercent(i) < j)">
+                        <ng-container *ngFor="let inv of diagnostic.inventory; let k = index">
+                            <ng-container *ngFor="let rec of inv.recommendations; let l = index">
+                                <span *ngIf="rec.ccp && rec.ccp == (i + 1) && rec.maturity == j" class="rec-icon rec-icon-{{ k }}">
+                                    {{ rec.recommendationId }}
+                                </span>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

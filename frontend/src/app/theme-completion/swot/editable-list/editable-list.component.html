@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 title">
+      {{ title }}
+    </div>
+  </div>
+
+  <div *ngIf="list">
+    <div class="row entry" *ngFor="let item of list">
+      <div class="col-sm-10">
+        {{ item }} 
+      </div>
+      <div class="col-sm-2 center">
+        <img src="assets/icons/minus-button.svg" 
+          matTooltip="Remove Item"
+          matTooltipShowDelay="1000"
+          (click)="removeListItem(item)">
+      </div>
+    </div>
+  </div>
+
+  <div class="row text-input">
+    <div class="col-sm-10 center">
+      <textarea class="form-control" rows="2" (keyup.enter)="addListItem()" [(ngModel)]="currentText" (keydown)="ignoreArrowKeys($event)"></textarea>
+    </div>
+    <div class="col-sm-2 center">
+      <img src="assets/icons/add-button.svg"
+          matTooltip="Add Item"
+          matTooltipShowDelay="1000"
+          (click)="addListItem()">
+    </div>
+  </div>
+</div>

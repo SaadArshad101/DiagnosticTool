@@ -1,0 +1,297 @@
+<app-navigation
+  *ngIf="diagnostic"
+  [middleText]="diagnostic.title"
+></app-navigation>
+<div *ngIf="diagnostic" class="report-button flex-item">
+  <button
+    *ngIf="!diagnostic.hideReport && isTabSelected('Results')"
+    class="mat-button nav-button"
+    (click)="exportToCSV()"
+  >
+    Export to CSV
+  </button>
+</div>
+
+<mat-tab-group (selectedTabChange)="tabChange($event)">
+  <mat-tab label="Results">
+    <div class="container">
+      <div
+        style="margin: auto; width: 30%; margin-bottom: 50px; margin-top: 20px"
+      >
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button
+            type="button"
+            (click)="toggleRadarChart()"
+            class="btn btn-radar"
+            id="radar-chart-button"
+          >
+            Radar Chart
+          </button>
+          <button
+            type="button"
+            (click)="toggleBarChart()"
+            class="btn btn-bar"
+            id="bar-chart-button"
+          >
+            Bar Chart
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="this.showRadarChart">
+        <div *ngIf="generatedScorecards" class="report-results">
+          <radar-chart
+            class="report-radar"
+            [labels]="labels"
+            [averages]="averages"
+            [data]="this.wordCloudData"
+            [generatedScoreCards]="generatedScorecards"
+            [diagnosticTitle]="diagnostic.title"
+          ></radar-chart>
+        </div>
+      </div>
+
+      <div *ngIf="this.showBarChart">
+        <plotly-plot
+          class="half-width"
+          [data]="themeAveragesGraphData['data']"
+          [layout]="themeAveragesGraphLayout"
+          [useResizeHandler]="true"
+          [style]=""
+        ></plotly-plot>
+      </div>
+    </div>
+
+    <!-- Strategic Considerations -->
+    <div
+      *ngIf="this.matchingRubrics && this.matchingRubrics.length > 0"
+      class="strategic-considerations"
+    >
+      <div class="report">
+        <h2 style="margin-top: 1%">Strategic Considerations</h2>
+      </div>
+
+      <div class="container-fluid" *ngFor="let rubric of this.matchingRubrics">
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <app-edit
+              [(dataModel)]="rubric.text"
+              [richText]="true"
+              [bulletsOnly]="true"
+              [disable]="!editable"
+              placeholder=""
+            ></app-edit>
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SWOT -->
+    <h2 align="center">SWOT</h2>
+    <ng-container *ngIf="aggregratedSwot">
+      <div>
+        <div class="container-fluid top-buffer">
+          <div class="row small-top-buffer bot-buffer">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5" *ngFor="let trait of swotTraits1">
+              <table>
+                <tr>
+                  <th>{{ upperCaseFirstLetter(trait) }}</th>
+                </tr>
+                <tr>
+                  <td>
+                    <app-edit
+                      richText="true"
+                      [(dataModel)]="aggregratedSwot[trait]"
+                      bulletsOnly="true"
+                      placeholder=""
+                    ></app-edit>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-sm-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="container-fluid top-buffer">
+          <div class="row small-top-buffer bot-buffer">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5" *ngFor="let trait of swotTraits2">
+              <table>
+                <tr>
+                  <th>{{ upperCaseFirstLetter(trait) }}</th>
+                </tr>
+                <tr>
+                  <td>
+                    <app-edit
+                      richText="true"
+                      [(dataModel)]="aggregratedSwot[trait]"
+                      bulletsOnly="true"
+                      placeholder=""
+                    ></app-edit>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-sm-1"></div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <h2 align="center">General Notes</h2>
+
+    <ng-container>
+      <div class="container">
+        <app-edit
+          richText="true"
+          [(dataModel)]="aggregatedDiagnosticNotes"
+          bulletsOnly="true"
+          placeholder=""
+        ></app-edit>
+      </div>
+    </ng-container>
+
+    <h2 align="center">Themes</h2>
+
+    <ng-container *ngIf="diagnostic">
+      <mat-expansion-panel
+        class="theme-tab"
+        *ngFor="let theme of diagnostic.themes; let i = index"
+        [expanded]="true"
+      >
+        <mat-expansion-panel-header
+          class="white-arrow"
+          collapsedHeight="*"
+          expandedHeight="*"
+        >
+          <mat-panel-title>
+            <span class="center">
+              {{ theme.title }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          class="question-wrap"
+          *ngFor="
+            let question of getFlattenedQuestionsOfTheme(theme);
+            let j = index;
+            trackBy: trackByFn
+          "
+        >
+          <div class="question-numbering">
+            <span class="question-bubble">Q{{ j + 1 }}</span>
+            <span class="question-pointer"></span>
+          </div>
+          <div class="question-box">
+            <mat-toolbar class="question-header">
+              <span class="question-title">
+                {{ question.text }}
+              </span>
+            </mat-toolbar>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-6 center-vertically">
+                  <div
+                    class="row row-padding"
+                    *ngFor="let answer of question.answers; let k = index"
+                  >
+                    <div class="col-sm-2"></div>
+                    <div
+                      id="answertext-{{ i }}-{{ j }}-{{ k }}"
+                      class="col-sm-7 ellipsis-truncate legend"
+                      (mouseenter)="hoverQuestion(i, j, question, k)"
+                      (mouseleave)="unhoverQuestions(i, j, question)"
+                    >
+                      {{ k + 1 }}. {{ answer.text }}
+                    </div>
+                    <div
+                      id="answercount-{{ i }}-{{ j }}-{{ k }}"
+                      class="col-sm-3 legend"
+                      (mouseenter)="hoverQuestion(i, j, question)"
+                      (mouseleave)="unhoverQuestions(i, j, question)"
+                    >
+                      {{ responseMap.get(answer.id) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 no-padding">
+                  <div id="qchart-{{ i }}-{{ j }}" class="qchart"></div>
+                </div>
+              </div>
+              <div class="row" *ngIf="aggregratedQuestionNotes">
+                <mat-expansion-panel class="notes-panel">
+                  <mat-expansion-panel-header
+                    class="white-arrow"
+                    collapsedHeight="*"
+                    expandedHeight="*"
+                  >
+                    <mat-panel-title>Notes</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="notes-expanded" matExpansionPanelContent>
+                    <app-edit
+                      richText="true"
+                      [(dataModel)]="aggregratedQuestionNotes[question.id]"
+                      bulletsOnly="true"
+                      placeholder="Question Notes"
+                    ></app-edit>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-tab>
+  <mat-tab *ngIf="diagnostic && diagnostic.isScorecard" label="Scorecard">
+    <ng-template matTabContent>
+      <app-scorecard
+        [editable]="true"
+        [scorecards]="aggScorecards"
+        [generatedScorecards]="generatedScorecards"
+        [diagnostic]="diagnostic"
+      ></app-scorecard>
+    </ng-template>
+  </mat-tab>
+  <mat-tab
+    *ngIf="diagnostic && diagnostic.showRoadmap"
+    label="Implementation Roadmap"
+  >
+    <div>
+      <app-impl-roadmap
+        [diagnostic]="diagnostic"
+        [enableCurLvl]="true"
+        [agg]="true"
+      ></app-impl-roadmap>
+    </div>
+    <div>
+      <app-rec-inventory [diagnostic]="diagnostic"></app-rec-inventory>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<div class="footer-spacing"></div>
+
+<footer class="sticky">
+  <button
+    class="mat-button"
+    (click)="saveChanges()"
+    matTooltip="Save all edits made"
+  >
+    Save Changes
+  </button>
+  &nbsp;
+  <button
+    class="mat-button"
+    (click)="resetChanges()"
+    matTooltip="Revert all edits made"
+  >
+    Reset Changes
+  </button>
+</footer>

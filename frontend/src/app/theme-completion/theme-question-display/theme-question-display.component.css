@@ -1,0 +1,171 @@
+.questionTitle {
+  font-family: Calibri, helvetica, arial, sans serif;
+  font-size: 22px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  color: #00a6b5;
+}
+
+.shadow {
+  border: .5px solid rgba(230, 220, 220, 0.671);
+  box-shadow: 0 2px 20px 0 rgba(175, 171, 171, 0.486);
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.answerText {
+  width: 24px;
+  height: 20px;
+  font-family: Oswald, sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #595959;
+}
+
+.title {
+  width: 106px;
+  height: 40px;
+  font-family: Oswald;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  color: #263745;
+  text-align: center;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 18px;
+}
+
+.wrap {
+  overflow-wrap: break-word;
+}
+
+.descriptionText {
+    margin-top: 1%;
+    font-family: Calibri, helvetica, arial, sans serif;
+    font-size: 22px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #636464;
+  }
+
+.mat-radio-label {
+  white-space: normal;
+}
+
+textArea {
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.header {
+    color: #263745;
+}
+
+.spaced-out {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.completed {
+    color: #00a6b5;
+}
+
+.uncompleted {
+    color: #c0c1c3;
+}
+
+.current {
+    color: #263745;
+}
+
+.nav-table {
+  width: 100%;
+}
+
+.nav-button {
+  margin: auto;
+}
+
+.left-button {
+  text-align: left;
+  margin-left: -40px;
+}
+
+.shift-content {
+  margin: auto;
+  margin-left: -28px;
+}
+
+.nav-button img{
+  font-family: Calibri, helvetica, arial, sans serif;
+  background-color: #f5f5f5;;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.no-padding {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin: auto;
+}
+
+.right-button {
+  text-align: right;
+  margin-right: -28px;
+}
+
+.top-buffer { 
+  margin-top: 5%;
+}
+
+tr {
+  width: 100%;
+}
+
+.nav-prev {
+  width: 100%;
+}
+
+.nav-next {
+  width: 0%;
+}
+
+.container .form-group img {
+  margin-bottom: 8px;
+}
+
+.middle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.answer-margin {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+::ng-deep .cdk-overlay-pane app-dialog>:first-child {
+  height: 290px;
+  overflow-y: auto;
+}

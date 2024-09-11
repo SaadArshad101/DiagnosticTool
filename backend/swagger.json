@@ -1,0 +1,1024 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Diagnostic Application",
+        "description": "Swagger documentation for Diagnostic Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "Theme",
+            "description": "API for themes in the system"
+        },
+        {
+            "name": "Diagnostic",
+            "description": "API for diagnostics in the system"
+        },
+        {
+            "name": "User",
+            "description": "API for users in the system"
+        },
+        {
+            "name": "Response",
+            "description": "API for user responses/answers in the system"
+        },
+        {
+            "name": "Rubric",
+            "description": "API for rubrics in the system"
+        },
+        {
+            "name": "Question",
+            "description": "API for questions in the system"
+        },
+        {
+            "name": "Answers",
+            "description": "API for answers in the system"
+        },
+        {
+            "name": "SWOT",
+            "description": "API for the SWOT objects in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/themes": {
+            "post": {
+                "tags": [
+                    "Theme"
+                ],
+                "description": "Create new theme in system",
+                "parameters": [
+                    {
+                        "name": "theme",
+                        "in": "body",
+                        "description": "Theme that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Theme"
+                        },
+                        "examples": {
+                            "_id": {
+                                "value": "01928371hvye",
+                                "summary": "A mongo generated ID"
+                            },
+                            "title": {
+                                "value": "My Example Theme",
+                                "summary": "Title of the theme"
+                            },
+                            "text": {
+                                "value": "This is a description of the theme we are about to take. This theme covers various topics...",
+                                "summary": "Description of the theme"
+                            },
+                            "questions": {
+                                "value": "['dafdgahf1231', 'hkjdgafjsdhgf123', 'tygbduyt6758']",
+                                "summary": "The list of questions (by questionId) to be included in the theme"
+                            },
+                            "rubric": {
+                                "value": "['dafdgahf1231', 'hkjdgafjsdhgf123', 'tygbduyt6758']",
+                                "summary": "The list of rubrics (by rubricId) to act as the scoring key"
+                            },
+                            "responses": {
+                                "value": "['dafdgahf1231', 'hkjdgafjsdhgf123', 'tygbduyt6758']",
+                                "summary": "The list of responses (by responseId) that were input by the user on each question"
+                            },
+                            "swot": {
+                                "value": "dafdgahf1231",
+                                "summary": "The swotId of the associated SWOT object for the theme"
+                            },
+                            "picturePath": {
+                                "value": "assets/img/Fitness.png",
+                                "summary": "The image path associated with the theme"
+                            },
+                            "currentQuestion": {
+                                "value": "7",
+                                "summary": "The numeric value of the question selected by the user"
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New theme is created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/theme/{themeId}": {
+            "parameters": [
+                {
+                    "name": "themeId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the theme that we want to find",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Theme"
+                ],
+                "summary": "Get theme with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Theme is found",
+                        "schema": {
+                            "$ref": "#/definitions/Theme"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete theme with given ID",
+                "tags": [
+                    "Theme"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Theme is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Theme"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update theme with give ID",
+                "tags": [
+                    "Theme"
+                ],
+                "parameters": [
+                    {
+                        "name": "theme",
+                        "in": "body",
+                        "description": "Theme with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Theme"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Theme is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Theme"
+                        }
+                    }
+                }
+            }
+        },
+        "/diagnostics": {
+            "post": {
+                "tags": [
+                    "Diagnostic"
+                ],
+                "description": "Create new diagnostic in system",
+                "parameters": [
+                    {
+                        "name": "diagnostic",
+                        "in": "body",
+                        "description": "Diagnostic that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Diagnostic"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New diagnostic is created",
+                        "schema": {
+                            "$ref": "#/definitions/Diagnostic"
+                        }
+                    }
+                }
+            }
+        },
+        "/diagnostic/{diagnosticId}": {
+            "parameters": [
+                {
+                    "name": "diagnosticId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the diagnostic that we want to find",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Diagnostic"
+                ],
+                "summary": "Get diagnostic with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Diagnostic is found",
+                        "schema": {
+                            "$ref": "#/definitions/Diagnostic"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete diagnostic with given ID",
+                "tags": [
+                    "Diagnostic"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Diagnostic is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Diagnostic"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update diagnostic with given ID",
+                "tags": [
+                    "Diagnostic"
+                ],
+                "parameters": [
+                    {
+                        "name": "diagnostic",
+                        "in": "body",
+                        "description": "Diagnostic with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Diagnostic"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Diagnostic is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Diagnostic"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{userId}": {
+            "parameters": [
+                {
+                    "name": "userId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the user whose info we want to load",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user with given ID",
+                "responses": {
+                    "200": {
+                        "description": "User is found",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete user with given ID",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update user with given ID",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/responses": {
+            "post": {
+                "tags": [
+                    "Response"
+                ],
+                "description": "Create new response in system",
+                "parameters": [
+                    {
+                        "name": "response",
+                        "in": "body",
+                        "description": "Response that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New response is created",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/response/{responseId}": {
+            "parameters": [
+                {
+                    "name": "responseId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the response that we want to load",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Response"
+                ],
+                "summary": "Get response with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Response is found",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete response with given ID",
+                "tags": [
+                    "Response"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update response with given ID",
+                "tags": [
+                    "Response"
+                ],
+                "parameters": [
+                    {
+                        "name": "response",
+                        "in": "body",
+                        "description": "Response with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rubrics": {
+            "post": {
+                "tags": [
+                    "Rubric"
+                ],
+                "description": "Create new rubric in system",
+                "parameters": [
+                    {
+                        "name": "rubric",
+                        "in": "body",
+                        "description": "Rubric that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Rubric"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New rubric is created",
+                        "schema": {
+                            "$ref": "#/definitions/Rubric"
+                        }
+                    }
+                }
+            }
+        },
+        "/rubric/{rubricId}": {
+            "parameters": [
+                {
+                    "name": "rubricId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the rubric that we want to load",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Rubric"
+                ],
+                "summary": "Get rubric with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Rubric is found",
+                        "schema": {
+                            "$ref": "#/definitions/Rubric"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete rubric with given ID",
+                "tags": [
+                    "Rubric"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rubric is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Rubric"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update rubric with given ID",
+                "tags": [
+                    "Rubric"
+                ],
+                "parameters": [
+                    {
+                        "name": "rubric",
+                        "in": "body",
+                        "description": "Rubric with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Rubric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rubric is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Rubric"
+                        }
+                    }
+                }
+            }
+        },
+        "/questions": {
+            "post": {
+                "tags": [
+                    "Question"
+                ],
+                "description": "Create new question in system",
+                "parameters": [
+                    {
+                        "name": "question",
+                        "in": "body",
+                        "description": "Question that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Question"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New question is created",
+                        "schema": {
+                            "$ref": "#/definitions/Question"
+                        }
+                    }
+                }
+            }
+        },
+        "/question/{questionId}": {
+            "parameters": [
+                {
+                    "name": "questionId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the question that we want to load",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Get question with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Question is found",
+                        "schema": {
+                            "$ref": "#/definitions/Question"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete question with given ID",
+                "tags": [
+                    "Question"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Question is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Question"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update question with given ID",
+                "tags": [
+                    "Question"
+                ],
+                "parameters": [
+                    {
+                        "name": "question",
+                        "in": "body",
+                        "description": "Question with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Question"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Question is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Question"
+                        }
+                    }
+                }
+            }
+        },
+        "/answers": {
+            "post": {
+                "tags": [
+                    "Answers"
+                ],
+                "description": "Create new answer in system",
+                "parameters": [
+                    {
+                        "name": "answer",
+                        "in": "body",
+                        "description": "Answer that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Answer"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New answer is created",
+                        "schema": {
+                            "$ref": "#/definitions/Answer"
+                        }
+                    }
+                }
+            }
+        },
+        "/answers/{answersId}": {
+            "parameters": [
+                {
+                    "name": "answersId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the answers that we want to load",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Answers"
+                ],
+                "summary": "Get answer set with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Answers are found",
+                        "schema": {
+                            "$ref": "#/definitions/Answer"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete answers with given ID",
+                "tags": [
+                    "Answers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Answers are deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Answer"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update answers with given ID",
+                "tags": [
+                    "Answers"
+                ],
+                "parameters": [
+                    {
+                        "name": "answers",
+                        "in": "body",
+                        "description": "Answers with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Answer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Answers are updated",
+                        "schema": {
+                            "$ref": "#/definitions/Answer"
+                        }
+                    }
+                }
+            }
+        },
+        "/swot": {
+            "post": {
+                "tags": [
+                    "SWOT"
+                ],
+                "description": "Create new SWOT object in system",
+                "parameters": [
+                    {
+                        "name": "swot",
+                        "in": "body",
+                        "description": "SWOT object that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/SWOT"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New SWOT object is created",
+                        "schema": {
+                            "$ref": "#/definitions/SWOT"
+                        }
+                    }
+                }
+            }
+        },
+        "/swot/{swotId}": {
+            "parameters": [
+                {
+                    "name": "swotId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the SWOT object that we want to load",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "SWOT"
+                ],
+                "summary": "Get SWOT object with given ID",
+                "responses": {
+                    "200": {
+                        "description": "SWOT is found",
+                        "schema": {
+                            "$ref": "#/definitions/SWOT"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete SWOT object with given ID",
+                "tags": [
+                    "SWOT"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SWOT was deleted",
+                        "schema": {
+                            "$ref": "#/definitions/SWOT"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update SWOT object with given ID",
+                "tags": [
+                    "SWOT"
+                ],
+                "parameters": [
+                    {
+                        "name": "swot",
+                        "in": "body",
+                        "description": "SWOT object with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/SWOT"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SWOT object was updated",
+                        "schema": {
+                            "$ref": "#/definitions/SWOT"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Answer": {
+            "required": [
+                "_id",
+                "text",
+                "value"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "text": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "Question": {
+            "required": [
+                "_id",
+                "text",
+                "answerOptions"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "text": {
+                    "type": "string"
+                },
+                "answerOptions": {
+                    "type": "array",
+                    "items": {
+                        "type": "ObjectId"
+                    }
+                },
+                "answerType": {
+                    "type": "string"
+                }
+            }
+        },
+        "Rubric": {
+            "required": [
+                "_id",
+                "min",
+                "max",
+                "title"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "min": {
+                    "type": "number"
+                },
+                "max": {
+                    "type": "number"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "Response": {
+            "required": [
+                "_id",
+                "answer"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "answer": {
+                    "type": "ObjectId"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            }
+        },
+        "SWOT": {
+            "required": [
+                "_id"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "strengths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "weaknesses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "opportunities": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "threats": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Theme": {
+            "required": [
+                "_id",
+                "questions",
+                "rubric"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "title": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "questions": {
+                    "type": "array",
+                    "items": {
+                        "type": "ObjectId"
+                    }
+                },
+                "rubric": {
+                    "type": "array",
+                    "items": {
+                        "type": "ObjectId"
+                    }
+                },
+                "responses": {
+                    "type": "array",
+                    "items": {
+                        "type": "ObjectId"
+                    }
+                },
+                "swot": {
+                    "type": "ObjectId"
+                },
+                "picturePath": {
+                    "type": "string"
+                },
+                "currentQuestion": {
+                    "type": "number"
+                }
+            }
+        },
+        "Diagnostic": {
+            "required": [
+                "_id"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "title": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "themes": {
+                    "type": "ObjectId[]"
+                }
+            }
+        },
+        "User": {
+            "required": [
+                "_id",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "diagnostics": {
+                    "type": "ObjectId[]"
+                }
+            }
+        }
+    }
+}

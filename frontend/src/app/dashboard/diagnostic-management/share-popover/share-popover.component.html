@@ -1,0 +1,23 @@
+<div class="pop-content helvetica">
+    <strong>Share this diagnostic</strong>
+    <!-- <span>Type name or email address</span> -->
+    <mat-form-field>
+        <input type="text" matInput placeholder="Type name or email address" [matAutocomplete]="auto" [formControl]="formControl">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectUser($event)">
+        <mat-option *ngFor="let option of filteredOptions | async" class="share-option" [value]="option.email">
+            {{ toLabel(option) }}
+        </mat-option>
+    </mat-autocomplete>
+    <span class="selected-emails">
+        <p *ngFor="let email of selectedEmails">
+            <img class="icon remove-email" src="assets/icons/x-button.svg" matTooltip="Remove" (click)="removeEmail(email)" />
+            &nbsp;
+            {{ email }}
+        </p>
+    </span>
+    <div class="buttons">
+        <button class="mat-button button-padding editor-button save-button" (click)="share()">Share</button>
+        <button class="mat-button button-padding editor-button cancel-button" (click)="cancel()">Cancel</button>
+    </div>
+</div>

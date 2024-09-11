@@ -1,0 +1,20 @@
+<div class="row top">
+    <h2 mat-dialog-title>Import Diagnostic</h2>
+    <img src="../../../assets/icons/x-button.svg" class="x-button" (click)="close()" />
+</div>
+<mat-dialog-content class="mat-typography">
+    <div class="import-icon-images">
+        <div>
+            <p align="center"><b>From Excel</b></p>
+            <input style="display: none" type="file" (change)="onExcelFileChanged($event)" #excelFileInput>
+            <img class="import-icon-image" src="../../../assets/icons/xlsx.svg" (click)="excelFileInput.click()"/>
+            <p align="center">Use a .xlsx file</p>
+        </div>
+        <div>
+            <p align="center"><b>From JSON</b></p>
+            <input style="display: none" type="file" (change)="onJsonFileChanged($event)" #fileInput>
+            <img class="import-icon-image" src="../../../assets/icons/json.svg" (click)="fileInput.click()"/>
+            <p align="center">Use a .json file</p>
+        </div>
+    </div>
+</mat-dialog-content>

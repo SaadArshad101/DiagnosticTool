@@ -1,0 +1,32 @@
+<div class="row top">
+  <h2 mat-dialog-title>Template Bank</h2>
+  <img src="../../../assets/icons/x-button.svg" class="x-button" (click)="close()" />
+</div>
+<mat-dialog-content class="mat-typography">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm">
+        <table *ngIf="templates" id="template-bank-table" class="table table-bordered table-hover helvetica">
+          <thead class="header-row">
+            <tr class="d-flex">
+              <th id="overlay-templates-th" class="col-sm-5">Templates</th>
+              <th id="overlay-description-th" class="col-sm-5">Description</th>
+              <th id="overlay-actions-th" class="col-sm-2">Actions</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let template of templates; let i = index" class="d-flex">
+            <td class="col-sm-5">
+              <p> <a class="diag-link" target="_blank" routerLink="../diagnostic/{{ template.id }}/preview"> {{ template.title }} </a> </p>
+            </td>
+            <td class="col-sm-5">
+              <p> {{ template.subtitle }} </p>
+            </td>
+            <td class="col-sm-2">
+              <button (click)="importFromTemplate(template)"> Add </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

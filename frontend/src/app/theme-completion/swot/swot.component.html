@@ -1,0 +1,20 @@
+<div class="container swot">
+  <div class="row" *ngIf="diagnostic">
+    
+    <div class="col-sm-3">
+      <app-editable-list title = "STRENGTHS" [list]=getUserData().swot.strengths (notify)='sChange($event)'></app-editable-list>
+    </div>
+
+    <div class="col-sm-3">
+      <app-editable-list title = "WEAKNESSES" [list]=getUserData().swot.weaknesses (notify)='wChange($event)'></app-editable-list>
+    </div>
+
+    <div class="col-sm-3">
+      <app-editable-list title = "OPPORTUNITIES" [list]=getUserData().swot.opportunities (notify)='oChange($event)'></app-editable-list>
+    </div>
+
+    <div class="col-sm-3">
+      <app-editable-list title = "THREATS" [list]=getUserData().swot.threats (notify)='tChange($event)'></app-editable-list>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,226 @@
+.table-title {
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  margin: auto;
+}
+
+table,
+td {
+  border: 1px solid #979797;
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #000000;
+  padding: 15px;
+}
+
+th {
+  padding: 15px;
+  background-color: #263745;
+  font-family: "Oswald", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+.all {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.canvas-div {
+  flex: 1 1;
+  width: 100%;
+}
+
+.table-div {
+  flex: 1 1;
+}
+
+tr {
+  width: 100%;
+  font-family: "Oswald", sans-serif;
+}
+
+.radarChart {
+  width: 55%;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.report {
+  text-align: center;
+}
+
+.top-buffer {
+  margin-top: 3%;
+}
+
+.bot-buffer {
+  margin-bottom: 3%;
+}
+
+.small-top-buffer {
+  margin-top: 2%;
+}
+
+.question-header,
+.answer-header {
+  width: 30%;
+}
+
+.notes-header {
+  width: 40%;
+}
+
+.back-to-questions {
+  display: flex;
+  justify-content: space-between;
+  /* font-family: "Oswald", sans-serif;
+    color: #00a6b5; */
+}
+
+#report-title {
+  text-align: center;
+  color: #00a6b5;
+}
+
+.title {
+  background-color: #263745;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Oswald";
+  font-weight: bold;
+}
+
+.gray {
+  background-color: gray;
+}
+
+.border {
+  border-bottom: 1px solid #ebebeb;
+}
+
+.entry {
+  font-family: "Oswald", sans-serif;
+  padding: 5px;
+  background-color: #ffffff;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  margin: auto;
+}
+
+:host #fit /deep/ .ql-container .ql-editor {
+  min-height: 0px;
+}
+
+:host #font-match /deep/ .ql-container .ql-editor {
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.harvey {
+  display: block;
+  margin: auto;
+}
+
+.fit {
+  height: 100%;
+}
+
+.themes-column {
+  /* width: 360px; */
+  width: 27%;
+}
+
+.current-level-column {
+  /* width: 120px; */
+  width: 5%;
+}
+
+.harvey-column {
+  width: 17%;
+}
+
+#legend {
+  width: 30%;
+}
+
+::ng-deep .back-to-questions > button.mat-button {
+  position: absolute;
+  right: 0px;
+  height: 50px;
+  z-index: 9999;
+}
+
+#core-processes {
+  width: 32%;
+}
+
+#findings-wrap {
+  width: 68%;
+  background-color: lightgray;
+}
+
+.circle-base {
+  background-color: white;
+  border: 2px solid #000;
+  height: 48px;
+  width: 48px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  display: inline-block;
+}
+
+::ng-deep .mat-tab-label {
+  cursor: pointer;
+  font-family: oswald;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.58;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  color: #c0c1c3;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-tab-label.mat-tab-label-active {
+  color: #ffffff;
+  background-color: #263745;
+}
+
+::ng-deep .mat-ink-bar {
+  transition: none !important;
+}
+
+.summary-cloud {
+  display: inline-flex;
+  padding-left: 400px;
+}
+
+.summary-radar {
+  display: inline-flex;
+  width: 1200px;
+}

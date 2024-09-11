@@ -1,0 +1,51 @@
+<div class="row top">
+  <h2 mat-dialog-title>Settings</h2>
+  <img src="../../../assets/icons/x-button.svg" class="x-button" (click)="close()" />
+</div>
+<mat-dialog-content class="mat-typography">
+  <mat-tab-group [class.hide-tabs]="!isAdmin">
+    <mat-tab label="General">
+      <div class="settings-wrap general-wrap">
+        <div class="checkbox-wrap">
+          <p><a><mat-checkbox [(ngModel)]="data.diagnostic.isBento"> Bento Integration </mat-checkbox></a></p>
+          <p><a><mat-checkbox [ngModel]="!data.diagnostic.hideReport" (ngModelChange)="data.diagnostic.hideReport = !$event"> Enable Report </mat-checkbox></a></p>
+          <p><a #sc><mat-checkbox [(ngModel)]="data.diagnostic.isScorecard"> Enable Scorecard </mat-checkbox></a></p>
+          <p><a><mat-checkbox [(ngModel)]="data.diagnostic.showRoadmap"> Enable Implementation Roadmap </mat-checkbox></a></p>
+          <p class="separator">Choose Display Mode:</p>
+          <mat-radio-group [(ngModel)]="data.diagnostic.isDX">
+            <p><a><mat-radio-button [value]=false> Simple View </mat-radio-button></a></p>
+            <p><a><mat-radio-button [value]=true> Vertical View </mat-radio-button></a></p> 
+          </mat-radio-group>
+       <p class="swotcheckbox" *ngIf="data.diagnostic.isDX"><a><mat-checkbox [(ngModel)]="data.diagnostic.isSWOTVertical"> SWOT in Vertical View </mat-checkbox></a></p>
+       <p class="separator">Harvey Ball Questions:</p>
+          <mat-radio-group [(ngModel)]="data.diagnostic.isHarveyBall">
+            <p><a><mat-radio-button [value]=false> 3 Questions </mat-radio-button></a></p>
+            <p><a><mat-radio-button [value]=true> 5 Questions </mat-radio-button></a></p>
+          </mat-radio-group>
+        </div>
+        <button class="mat-button button-padding save-button" (click)="close()">OK</button>
+      </div>
+    </mat-tab>
+    <mat-tab *ngIf="isAdmin" label="Users">
+      <div class="settings-wrap users-wrap">
+        <ng-container *ngFor="let userId of existingUsers">
+          <div *ngIf="allUsers.get(userId)" class="user-row">
+            <img src="assets/icons/add-button.svg" class="add-row hide-button" />
+            <img *ngIf="userId !== myUserId" src="assets/icons/remove-button.svg" class="remove-row" matTooltip="Remove user" matTooltipShowDelay="1000" (click)="removeUser(userId)" />
+            <img *ngIf="userId === myUserId" src="assets/icons/remove-button.svg" class="remove-row hide-button" />
+            <app-register [multi]="true" [readOnly]="true" [registered]="allUsers.get(userId)" [enableAssume]="(userId !== myUserId) && isLoggedIn(allUsers.get(userId).email)"></app-register>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let row of userRows; let i = index">
+          <div *ngIf="row !== false" class="user-row">
+            <img *ngIf="isLastRow(row)" src="assets/icons/add-button.svg" class="add-row" matTooltip="New user" matTooltipShowDelay="1000" (click)="addListItem()" />
+            <img *ngIf="!isLastRow(row)" src="assets/icons/add-button.svg" class="add-row hide-button" />
+            <img src="assets/icons/remove-button.svg" class="remove-row" (click)="removeListItem(i)" />
+            <app-register #usr [multi]="true"></app-register>
+          </div>
+        </ng-container>
+        <button class="mat-button button-padding add-button" (click)="addUsers()">Add Users</button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>

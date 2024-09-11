@@ -1,0 +1,225 @@
+.scorecard-wrap {
+    margin: 10px;
+}
+
+.scorecard-wrap .heading {
+    background-color: #263646;
+}
+
+.scorecard-wrap .subhead {
+    background-color: #5C7D95;
+}
+
+.scorecard-wrap .scorecard-topline thead {
+    text-align: center;
+}
+
+.scorecard-wrap .harvey-column {
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.scorecard-wrap .cap-head {
+    background-color: #CBD8E5;
+    text-align: center;
+}
+
+
+.scorecard-wrap .proc-head {
+    background-color:  #b44db7;
+}
+
+.scorecard-wrap .people-head {
+    background-color:  #5b4db7;
+}
+
+.scorecard-wrap .tech-head {
+    background-color: #42adc7;
+}
+
+.scorecard-wrap .user-added-head1 {
+    background-color: #81d152;
+}
+
+.scorecard-wrap .user-added-head2 {
+    background-color: #e2e050;
+}
+
+.scorecard-wrap .user-added-head3 {
+    background-color: #ff9d4f;
+}
+.scorecard-wrap .user-added-head4 {
+    background-color: #ff5347;
+}
+
+
+.scorecard-wrap .heading, .scorecard-wrap .subhead, .scorecard-wrap .findings-wrap thead {
+    color: #FFFFFF;
+}
+
+.scorecard-wrap .processes-wrap {
+    width: 32%;
+    min-width: 290px;
+    display: inline-block;
+}
+
+.scorecard-wrap .findings-wrap {
+    width: 66%;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #C0C0C0;
+    margin-left: 2%;
+}
+
+.scorecard-wrap .findings th {
+    width: 20%;
+}
+
+.scorecard-wrap .findings td {
+    background-color: #FFFFFF;
+}
+
+.scorecard-wrap .add-spacing {
+    border-right: 10px solid #C0C0C0;
+}
+
+.scorecard-wrap .cap-numbering {
+    width: 5%;
+    min-width: 140px;
+    text-align: center;
+}
+
+.scorecard-wrap .cap-numbering table {
+    margin-bottom: 0;
+}
+
+.scorecard-wrap .cap-wrap>div {
+    vertical-align: top;
+}
+
+.scorecard-wrap .cap-wrap table {
+    height: 360px;
+}
+
+.scorecard-wrap .cap-wrap .cap-sum {
+    width: 28%;
+    min-width: 280px;
+    display: inline-block;
+}
+
+.scorecard-wrap .mat-wrap {
+    width: 72%;
+    display: inline-block;
+}
+
+.scorecard-wrap .mat-wrap thead {
+    text-align: center;
+}
+
+.scorecard-wrap .cap-name {
+    font-weight: normal;
+}
+
+.scorecard-wrap .key-evidence {
+    background-color: #C0C0C0;
+    font-style: italic;
+    text-align: left;
+}
+
+.scorecard-wrap .findings {
+    width: 96%;
+    margin: 1% 2%;
+}
+
+.scorecard-wrap .findings>tr>td {
+    width: 20%;
+    padding: 0 4px;
+}
+
+.scorecard-wrap .findings>tr>td>table {
+    height: 290px;
+    background-color: #FFFFFF;
+    margin: 0;
+}
+
+.scorecard-wrap .mat-wrap th {
+    width: 16%;
+}
+
+.scorecard-wrap .matur-selected {
+    background-color: #CBD8E5;
+}
+
+.click-to-edit {
+    cursor: url('/assets/edit.ico'), default;
+}
+
+.scorecard-question {
+    font-weight: bold;
+}
+
+.scorecard-topline td>:first-child {
+    min-height: 200px;
+}
+
+.scorecard-wrap .harvey {
+    width: 40px;
+    height: 40px;
+}
+
+.scorecard-wrap .harvey.big-icon {
+    width: 48px;
+    height: 48px;
+}
+
+li.hide-empty {
+    display: none;
+}
+
+mat-select {
+    position: absolute;
+    text-align: left;
+    top: 4px;
+    margin-left: 4px;
+}
+
+.capmat-wrap {
+    position: relative;
+    width: 100%;
+}
+
+::ng-deep .capmat-wrap .mat-option-text {
+    text-align: center;
+}
+
+::ng-deep .capmat-wrap .mat-select-value {
+    display: none !important;
+}
+
+::ng-deep .capmat-wrap .mat-select-arrow-wrapper {
+    background-color: greenyellow;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    visibility: hidden;
+}
+
+.reset-scorecards {
+    position: absolute;
+    height: 50px;
+    top: -50px;
+    right: 0;
+    z-index: 2;
+}
+
+.cap-wrap th, .processes-wrap th {
+    vertical-align: middle;
+}
+
+.cap-mat {
+    width: 90px;
+}
+
+.process-id {
+    white-space: nowrap;
+}

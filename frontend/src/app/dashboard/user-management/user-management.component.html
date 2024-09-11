@@ -1,0 +1,89 @@
+<div class="container-fluid horizontal-margin" *ngIf="users">
+
+  <div id="user-pagination">
+    <mat-form-field>
+      <input matInput placeholder="Search" [(ngModel)]="searchText" autocomplete="off">
+    </mat-form-field>
+
+    <table>
+      <tr>
+        <td class="paddingBetweenCols">
+          <mat-form-field>
+            <mat-label>Items per page</mat-label>
+            <mat-select [(ngModel)]="pageSize">
+              <mat-option [value]="5">5</mat-option>
+              <mat-option [value]="10">10</mat-option>
+              <mat-option [value]="25">25</mat-option>
+              <mat-option [value]="50">50</mat-option>
+              <mat-option [value]="100">100</mat-option>
+              <mat-option [value]="999999999">ALL</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td class="paddingBetweenCols bottom-padding">
+          <div *ngIf="(users | deepFilter: searchText: filteredElements).length == 0">
+            0 - 0 of 0
+          </div>
+          <div *ngIf="(users | deepFilter: searchText: filteredElements).length > 0">
+          {{ (currentPage - 1) * pageSize + 1 }} - {{ math.min(currentPage * pageSize, (users | deepFilter: searchText: filteredElements).length) }}
+           of {{ (users | deepFilter: searchText: filteredElements).length }}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <table *ngIf="users" class="table table-bordered table-hover helvetica">
+    <thead class="header-row">
+      <tr class="d-flex">
+        <th id="users-th" class="col-sm-5">Users</th>
+        <th id="description-th" class="col-sm-6">Description</th>
+        <th id="actions-th" class="col-sm-1">Actions</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let aUser of users | deepFilter: searchText: filteredElements | slice: (currentPage-1) * pageSize : currentPage * pageSize" class="d-flex">
+      <td class="col-sm-5">
+        <p>
+          {{ aUser.lastName }}, {{ aUser.firstName }}
+        </p>
+        <p>
+          {{ aUser.email }}
+        </p>
+        <p *ngIf="calculateDaysSinceLastInteraction(aUser) != null">
+          Last interaction was {{ calculateDaysSinceLastInteraction(aUser) }} days ago
+        </p>
+        <div>
+          <b>Diagnostics:</b>
+          <div *ngFor="let id of aUser.diagnostics">
+            <a class="diag-link" routerLink="../diagnostic/{{ id }}/adminPreview" target="_blank" *ngIf="diagnosticMap.get(id)">
+            {{ diagnosticMap.get(id) }} </a>
+          </div>
+        </div>
+      </td>
+      <td class="col-sm-6">
+        <mat-form-field>
+          <mat-label>User Role</mat-label>
+          <mat-select [(ngModel)]="aUser.role" (ngModelChange)="updateUser(aUser)">
+            <mat-option>None</mat-option>
+            <mat-option value="Taker">User</mat-option>
+            <mat-option value="Designer">Diagnostic Admin</mat-option>
+            <mat-option value="Admin">System Admin</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td class="col-sm-1 footer">
+        <img class="icon" src="assets/icons/trash.svg" (click)="deleteUser(aUser)" matTooltip="Delete user"/>
+      </td>
+    </tr>
+  </table>
+
+  <div class="center">
+    <ngb-pagination
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      [rotate]="true"
+      [collectionSize]="(users | deepFilter: searchText: filteredElements).length || 1"
+      [maxSize]="maxSize">
+    </ngb-pagination>
+  </div>
+</div>

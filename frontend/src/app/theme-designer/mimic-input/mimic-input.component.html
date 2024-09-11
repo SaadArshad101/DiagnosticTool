@@ -1,0 +1,4 @@
+<div class="floating-label-mimic" *ngIf="!isEmpty"> {{ labelName }} </div>
+<div class="empty-label" *ngIf="isEmpty"> {{ labelName }} </div>
+<div class="content" *ngIf="!isEmpty">{{ content }}</div>
+<div class="empty-content" *ngIf="isEmpty"></div>

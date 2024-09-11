@@ -1,0 +1,74 @@
+<div class="container-fluid horizontal-margin" *ngIf="templates">
+  <div id="template-pagination">
+    <mat-form-field>
+      <input matInput placeholder="Search" [(ngModel)]="searchText" autocomplete="off">
+    </mat-form-field>
+
+    <table>
+      <tr>
+        <td class="paddingBetweenCols">
+          <mat-form-field>
+            <mat-label>Items per page</mat-label>
+            <mat-select [(ngModel)]="pageSize">
+              <mat-option [value]="5">5</mat-option>
+              <mat-option [value]="10">10</mat-option>
+              <mat-option [value]="25">25</mat-option>
+              <mat-option [value]="50">50</mat-option>
+              <mat-option [value]="100">100</mat-option>
+              <mat-option [value]="999999999">ALL</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td class="paddingBetweenCols bottom-padding">
+          <div *ngIf="(templates | deepFilter: searchText: filteredElements).length == 0">
+            0 - 0 of 0
+          </div>
+          <div *ngIf="(templates | deepFilter: searchText: filteredElements).length > 0">
+          {{ (currentPage - 1) * pageSize + 1 }} - {{ math.min(currentPage * pageSize, (templates | deepFilter: searchText: filteredElements).length) }}
+            of {{ (templates | deepFilter: searchText: filteredElements).length }}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <table class="table table-bordered table-hover helvetica">
+    <thead class="header-row">
+      <tr class="d-flex">
+        <th id="templates-th" class="col-sm-5">Templates</th>
+        <th id="description-th" class="col-sm-6">Description</th>
+        <th id="actions-th" class="col-sm-1">Actions</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let template of templates | deepFilter: searchText: filteredElements | slice: (currentPage-1) * pageSize : currentPage * pageSize" class="d-flex">
+      <td class="col-sm-5">
+        <p><a class="diag-link">
+              {{ template.title}}
+            </a>
+        </p>
+      </td>
+      <td class="col-sm-6">
+        <p>{{ template.subtitle }}</p>
+      </td>
+      <td class="col-sm-1 footer">
+        <img class="icon" src="assets/icons/trash.svg" (click)="deleteTemplate(template)" matTooltip="Delete template"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="footer">
+        <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+        <button class="mat-button" (click)="fileInput.click()">Add Template</button>
+      </td>
+    </tr>
+  </table>
+
+  <div class="center">
+    <ngb-pagination
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      [rotate]="true"
+      [collectionSize]="(templates | deepFilter: searchText: filteredElements).length || 1"
+      [maxSize]="maxSize">
+    </ngb-pagination>
+  </div>
+</div>

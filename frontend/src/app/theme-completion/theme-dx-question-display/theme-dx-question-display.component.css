@@ -1,0 +1,226 @@
+.dx-questions-container {
+  display: flex;
+}
+
+.dx-questions-container h2 {
+  font-family: oswald;
+  font-size: 42px;
+  color: #555 !important;
+} 
+
+.dx-container {
+   flex: 1;
+   background-color: #fff;
+   display: inline-block;
+   height: auto;
+   margin: 0 2%;
+}
+
+.questionTitle {
+  font-family: Oswald;
+  font-size: 28px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  color: #00a6b5;
+}
+
+.answerText {
+  width: 24px;
+  height: 20px;
+  font-family: Oswald, sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #595959;
+}
+
+.title {
+  width: 106px;
+  height: 40px;
+  font-family: Oswald;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  color: #263745;
+  text-align: center;
+  border: 1px solid red;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 18px;
+}
+
+.wrap {
+  overflow-wrap: break-word;
+  width: 100%;
+}
+
+.questiondescription {
+    margin: 10px 0 20px 0;
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    color: #7f7f7f;
+    font-size: 14pt;
+}
+
+.noteinstruction {
+  margin: 10px 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16pt;
+  color: #00A6B5;
+}
+
+.mat-radio-label {
+  white-space: normal;
+}
+
+textArea {
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.header {
+    color: #263745;
+}
+
+.spaced-out {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.completed {
+    color: #00a6b5;
+}
+
+.uncompleted {
+    color: #c0c1c3;
+}
+
+.current {
+    color: #263745;
+}
+
+.left-button {
+  float: left;
+  text-align: center;
+  color: #555;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 2px solid #797979;
+  padding: 5px 0px;
+  width: 150px;
+}
+
+.left-button:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+.shift-content {
+  margin: auto;
+  margin-left: -28px;
+}
+
+.nav-button img{
+  font-family: Calibri, helvetica, arial, sans serif;
+  background-color: #f5f5f5;;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.no-padding {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin: auto;
+}
+
+.right-button {
+  float: right;
+  text-align: center;
+  color: #555;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 2px solid #797979;
+  padding: 5px 0px;
+  width: 150px;
+}
+
+.right-button:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+.top-buffer { 
+  margin-top: 5%;
+}
+
+tr {
+  width: 100%;
+}
+
+.nav-prev {
+  width: 100%;
+}
+
+.nav-next {
+  width: 0%;
+}
+
+.middle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.answer-margin {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+::ng-deep .cdk-overlay-pane app-dialog>:first-child {
+  height: 290px;
+  overflow-y: auto;
+}
+
+.dx-resources-container {
+  background-color: #fff;
+  width: 33%;
+  display: inline-block;
+  padding: 0 2%;
+  height: auto;
+}
+
+.hidebutton {
+    display: none;
+}
+
+.analysis-sticky {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #00a6b5;
+  color: #fff;
+  height: 45px;
+  font-size: 20px;
+  border: none;
+  padding: 2px 10px;
+  border-top-left-radius: 8px;
+}
+
+.analysis-sticky:hover {
+  cursor: pointer;
+}

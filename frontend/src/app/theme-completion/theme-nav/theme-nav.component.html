@@ -1,0 +1,25 @@
+<div class="flex" (window:resize)="updateNavPosition()"> 
+  <div id="theme-nav-bar" class="nav-flex-container">
+    <a href="javascript:void(0);" id="nav-prev" class="text spaced-out flex-item nav-scroll" (click)="clickArrow(-1)"
+            [class.theme-page-off]="isWholeNavVisible()" [class.theme-arrow-hide]="isNavigationHidden(-1)">&lt;</a>
+      <span id="nav-outer-wrap" [class.nav-full-width]="diagnostic && diagnostic.hideReport">
+        <span id="nav-inner-wrap" [style.marginLeft.px]="margin">
+          <ng-container *ngFor="let theme of diagnostic.themes; let i = index">
+            <div class="text spaced-out flex-item theme-head theme-head-{{ i }}" *ngIf="theme.visible" (click)="setCurrentTheme(theme.id)"
+                    [class.current]="theme.id === getCurrentTheme()" [class.default]="theme.id != getCurrentTheme()">
+              <span class="word-wrap"> {{ theme.title }} </span>
+            </div>
+          </ng-container>
+        </span>
+        <div id="nav-fade-right" class="nav-fade" [class.theme-page-off]="isNavigationHidden(1)"></div>
+        <div id="nav-fade-left" class="nav-fade" [class.theme-page-off]="isNavigationHidden(-1) || margin == 0"></div>
+    </span>
+    <a href="javascript:void(0);" id="nav-next" class="text spaced-out flex-item nav-scroll" (click)="clickArrow(1)"
+            [class.theme-page-off]="isWholeNavVisible()" [class.theme-arrow-hide]="isNavigationHidden(1)">&gt;</a>
+    <div class="report-button flex-item" *ngIf="diagnostic && !diagnostic.hideReport">
+      <button class="mat-button nav-button" (click)="setReportClicked()">View Report</button>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

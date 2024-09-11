@@ -1,0 +1,65 @@
+<div class="container shadow top-buffer" *ngIf="getCurrentQuestion()">
+  <div class="row">
+    <div class="col-sm-1 nav-button">
+      <div *ngIf="!isValidBack()" class="left-button">
+        <img id="previous-arrow" src="assets/icons/left-arrow-deactivated.svg">
+      </div>
+      <div *ngIf="isValidBack()" class="left-button">
+        <img id="previous-arrow" [src]="hoverLeft ? 'assets/icons/left-arrow-blue-hover.svg' : 'assets/icons/left-arrow-blue.svg' "  (mouseover)="hoverLeft = true" 
+             (mouseout)="hoverLeft = false" matTooltip="Go to Previous Question" matTooltipShowDelay="1000" (click)="back()">
+      </div>
+    </div>
+      <div class="col-sm-7 wrap" *ngIf="isDiagnosticEmpty() == true">
+        <span class="questionTitle">This diagnostic has no themes</span>
+      </div>
+      <div class="col-sm-7 wrap" *ngIf="isDiagnosticEmpty() == false && getCurrentQuestionId() == null">
+        <span class="questionTitle">This theme has no questions</span>
+      </div>
+      <div class="col-sm-7 wrap" *ngIf="isDiagnosticEmpty() == false && getCurrentQuestionId() != null">
+        <span class="questionTitle">
+          <!-- {{ getCurrentQuestionIndex() + 1 }}. -->
+          {{ getCurrentQuestion().text }}
+          <img *ngIf="getCurrentQuestion() && getCurrentQuestion().description" src="assets/icons/info-active.svg" (click)="openQuestionDescription(getCurrentQuestion().description)">
+          <!-- <p class="descriptionText">{{ getCurrentQuestion().description }}</p> -->
+        </span>
+        <mat-radio-group *ngIf="getResponses()" class="example-radio-group" [value]="getCurrentResponse().answerId">
+          <div *ngFor="let answerOption of getCurrentQuestion().answers">
+            <div class="row answer-margin">
+              <div class="col-sm-12 middle wrap">
+                <mat-radio-button #button [value]="answerOption.id"
+                  (click)='selectAnswerOption(answerOption, button)'>
+                  <span class="mat-radio-label">
+                  {{ answerOption.text }}
+                  </span>
+                </mat-radio-button>
+              </div>
+            </div>
+          </div>
+        </mat-radio-group>
+      </div>
+      <div class="col-sm-3" *ngIf="isDiagnosticEmpty() == false && getCurrentQuestionId() != null">
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">
+            <span class="title">NOTES: </span>
+            <img src="assets/icons/info-active.svg" 
+                matTooltip="Record notes here as your going through the Diagnostic Tool. 
+                            These notes will be saved and included in your results when
+                            you’re done with the questions.">
+          </label>
+          <quill-editor id="notes" *ngIf="getResponses()" [(ngModel)]="getCurrentResponse().notes" [modules]="editorOptions" placeholder="Enter notes here..."
+                        (onBlur)="updateNote(getCurrentResponse().notes)" (keydown)="ignoreArrowKeys($event)" (onEditorCreated)="editorInit($event)" 
+                        (click)="focusEditor($event)" [styles]="minHeight">
+          </quill-editor>
+        </div>
+      </div>
+    <div class="col-sm-1 nav-button right-button">
+      <div *ngIf="!isValidNext()">
+        <img id="next-arrow" src="assets/icons/right-arrow-deactivated.svg" />
+      </div>
+      <div *ngIf="isValidNext()">
+        <img  id="next-arrow" [src]="hoverRight ? 'assets/icons/right-arrow-blue-hover.svg' : 'assets/icons/right-arrow-blue.svg' " (mouseover)="hoverRight = true" 
+        (mouseout)="hoverRight = false" matTooltip="Go to Next Question" matTooltipShowDelay="1000" (click)="next()" />
+      </div>
+    </div>
+  </div>
+</div>

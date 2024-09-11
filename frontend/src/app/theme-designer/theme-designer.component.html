@@ -1,0 +1,398 @@
+<app-navigation #nav *ngIf="diagnostic" [diagnostic]="diagnostic" [middleText]="diagnostic.title"
+  [isEditor]="!readOnly" (diagnosticEmitter)="changeDiagnostic($event)"></app-navigation>
+
+<ng-container *ngIf="diagnostic">
+  <mat-tab-group (selectedTabChange)="tabChange($event)" class="navy">
+    <mat-tab label="Themes">
+      <!-- START DESCRIPTION EDITOR SECTION-->
+      <section id="description-editor" *ngIf="isTabSelected('Themes')">
+        <div class="container">
+          <div class="row">
+            <div class="col-md" align="center">
+              <app-mimic-input *ngIf="readOnly" labelName="Diagnostic Description" [isEmpty]=!diagnostic.description
+                [content]=diagnostic.description></app-mimic-input>
+              <mat-form-field *ngIf="!readOnly">
+                <textarea matInput [(ngModel)]="diagnostic.text" placeholder="Diagnostic Description"
+                  cdkTextareaAutosize></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- START DESCRIPTION EDITOR SECTION-->
+      <!-- START THEMES EDITOR SECTION-->
+      <section id="themes-editor" *ngIf="isTabSelected('Themes')" cdkDropList (cdkDropListDropped)="reorderTheme($event)">
+        <mat-expansion-panel #tpanel class="theme-panel"
+          *ngFor="let theme of diagnostic.themes; let j = index; trackBy: trackByFn" [(expanded)]="theme.expanded">
+          <mat-expansion-panel-header class="white-arrow" collapsedHeight="*" expandedHeight="*"
+            (click)="ngAfterViewInit();" cdkDrag>
+            <mat-panel-title class="white-text">
+              <span class="center" *ngIf="!readOnly">
+                <mat-checkbox [(ngModel)]="theme.visible" (click)="ignoreClick($event)"
+                  matTooltip="Select theme for use"></mat-checkbox>
+                &nbsp;
+              </span>
+              <span>
+                {{ theme.title }}
+              </span>
+              <ng-container *ngIf="!readOnly">
+                <span class="example-fill-remaining-space"></span>
+                <span class="center" (click)='ignoreClick($event)'>
+                  <img class="invert-icon" src="assets/icons/duplicate-document.svg" (click)='duplicateTheme(theme, j)'
+                    matTooltip="Duplicate theme" />
+                  &nbsp;
+                  <img class="invert-icon" src="assets/icons/trash.svg" (click)='deleteTheme(j)'
+                    matTooltip="Delete theme" />
+                </span>
+              </ng-container>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <mat-form-field *ngIf="!readOnly">
+              <textarea matInput [(ngModel)]="theme.title" placeholder="Theme Title" cdkTextareaAutosize></textarea>
+            </mat-form-field>
+            <div class="padded" *ngIf="readOnly">
+              <app-mimic-input labelName="Theme Title" [isEmpty]=!theme.title [content]=theme.title></app-mimic-input>
+            </div>
+
+            <mat-form-field *ngIf="!readOnly">
+              <textarea matInput [(ngModel)]="theme.benefitsAndOutcomes" placeholder="Benefits and Outcomes" cdkTextareaAutosize></textarea>
+            </mat-form-field>
+            <div class="padded" *ngIf="readOnly">
+              <app-mimic-input labelName="Benefits and Outcomes" [isEmpty]=!theme.benefitsAndOutcomes [content]=theme.benefitsAndOutcomes></app-mimic-input>
+            </div>
+
+            <ngx-nestable #nestable id="nest-q-{{ j }}" [(list)]="theme.questions" [template]="itemTemplate" (listChange)="listChange($event)">
+            </ngx-nestable>
+
+            <ng-template #itemTemplate let-row>
+              <button mat-icon-button *ngIf="row.item.children && row.item.children.length; else empty_item"
+                class="expander" [ngxNestableExpandCollapse]="row">
+                <mat-icon class="expander-icon">{{row.item.$$expanded ? 'arrow_drop_down' : 'arrow_right'}}</mat-icon>
+              </button>
+
+              <ng-container style="width: 100%">
+                <mat-expansion-panel #qpanel class="question-panel" 
+                  [class.inactive-panel]="!isPanelActive(j, row, qpanel)"
+                  [class.active-panel]="isPanelActive(j, row, qpanel)" (mouseenter)="hoverPanel(j, row)"
+                  (mouseleave)="unhoverPanel()">
+                  <mat-expansion-panel-header class="white-arrow" collapsedHeight="*" expandedHeight="*"
+                    (click)="ngAfterViewInit();">
+                    <button mat-icon-button class="drag-handle" matTooltip="Drag and drop to reorder questions"
+                      [ngxNestableDragHandle]="row">
+                      <mat-icon class="drag-handle-icon">drag_indicator</mat-icon>
+                    </button>
+                    <mat-panel-title class="white-text">
+                      <span>
+                        {{ row.item.text }}
+                      </span>
+                      <span class="example-fill-remaining-space"></span>
+                      <span *ngIf="!readOnly">
+                        <span class="center" (click)='ignoreClick($event)'>
+                          <img class="invert-icon" src="assets/icons/duplicate-document.svg"
+                            (click)='duplicateQuestionElement(j, row.item)' matTooltip="Duplicate question" />
+                          &nbsp;
+                          <img class="invert-icon" src="assets/icons/trash.svg"
+                            (click)='removeQuestionElement(row.item.id, j)' matTooltip="Delete question" />
+                        </span>
+                      </span>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container-fluid" matExpansionPanelContent>
+                    <div class="row">
+                      <div class="col-sm-5 fit padding-top">
+                        <app-mimic-input *ngIf="readOnly" labelName="Question" [isEmpty]=!row.item.text
+                          [content]=row.item.text></app-mimic-input>
+                        <quill-editor *ngIf="readOnly" [(ngModel)]="row.item.description"
+                          [modules]="descriptionReadonlyOptions"></quill-editor>
+                        <mat-form-field *ngIf="!readOnly" class="question-text" (click)="ignoreClick($event)"
+                          (onmousedown)="ignoreClick($event)" (onmousemove)="ignoreClick($event)">
+                          <textarea matInput [(ngModel)]="row.item.text" placeholder="Question"
+                            cdkTextareaAutosize></textarea>
+                        </mat-form-field>
+                        <!-- <app-mimic-input class="tag-label" labelName="Tags"></app-mimic-input>
+                        <tag-input *ngIf="!readOnly" [(ngModel)]="row.item.tags" [separatorKeys]="[',']"
+                          [placeholder]="''" [secondaryPlaceholder]="''" (onAdd)="onTagAdd($event)"
+                          (onRemove)="onTagRemove($event)">
+                          <tag-input-dropdown [autocompleteItems]=tagsForAutoCompletion></tag-input-dropdown>
+                        </tag-input>
+                        <tag-input *ngIf="readOnly" [(ngModel)]="row.item.tags" [disable]="true" [placeholder]="''"
+                          [secondaryPlaceholder]="''"></tag-input> -->
+
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-sm-4" style="padding:0;">
+                                <mat-form-field (click)="ignoreClick($event)" *ngIf = "!readOnly">
+                                  <mat-label>Type</mat-label>
+                                  <mat-select [(value)] = "row.item.scorecardType">
+                                    <mat-option value="">None</mat-option>
+                                    <mat-option *ngFor="let invIndex of getInventoryArray()" value="{{ invIndex }}">{{ getInventoryLabel(invIndex) }}</mat-option> 
+                                  </mat-select>
+                                </mat-form-field>
+                                <app-mimic-input *ngIf="readOnly" labelName="Type" [content]=row.item.scorecardType>
+                                </app-mimic-input>
+                              </div>
+                              <mat-form-field *ngIf="!readOnly" class="question-text col-sm-8" style="padding-right:0;" (click)="ignoreClick($event)" (onmousedown)="ignoreClick($event)" (onmousemove)="ignoreClick($event)">
+                                <textarea matInput [(ngModel)]="row.item.capability" placeholder="Capability" cdkTextareaAutosize></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        <div>
+
+                          <mat-tab-group>
+                            <mat-tab label="Description">
+                              <div class="container-fluid">
+                                <div class="tab-label">Question Description</div>
+                                <quill-editor *ngIf="!readOnly" [(ngModel)]="row.item.description" [modules]="descriptionOptions"></quill-editor>        
+                              </div>
+                            </mat-tab>
+                            <mat-tab label="Resources">
+                              <div class="container-fluid">
+                                <div class="tab-label">Question Resources</div>
+                                <quill-editor *ngIf="!readOnly" [(ngModel)]="row.item.resources" [modules]="descriptionOptions"></quill-editor>        
+                              </div>
+                            </mat-tab>
+                          </mat-tab-group>
+
+                          <mat-form-field *ngIf="!readOnly" class="question-text" (click)="ignoreClick($event)" (onmousedown)="ignoreClick($event)" (onmousemove)="ignoreClick($event)">
+                            <textarea matInput [(ngModel)]="row.item.noteinst" placeholder="Note Instructions" cdkTextareaAutosize></textarea>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-7 no-right-padding">
+                        <div class="answer-list" cdkDropList (cdkDropListDropped)="drop($event, row.item.answers)">
+                          <div *ngIf="!readOnly && row.item.answers.length === 0">
+                            <button class="mat-button" (click)='addAnswerOptionElement(row.item.id, j)'>Add
+                              Answer</button>
+                          </div>
+                          <div #ans id="ans-{{ j }}-{{ k }}-{{ row.item.$$id }}" class="answer-box"
+                            [class.inactive-answer]="!isAnswerActive(j, k, row)"
+                            [class.active-answer]="isAnswerActive(j, k, row)" (mouseenter)="hoverAnswer(j, k, row)"
+                            (mouseleave)="unhoverAnswer()"
+                            *ngFor="let answer of row.item.answers; let k = index; trackBy: trackByFn" cdkDrag>
+                            <div class="active-answer-line" [style.height.px]="ans.offsetHeight"></div>
+                            <mat-icon *ngIf="!readOnly" cdkDragHandle class="drag-handle-icon"
+                              matTooltip="Drag and drop to reorder answers">
+                              drag_indicator
+                            </mat-icon>
+                            <img *ngIf="!readOnly && false" cdkDragHandle class="icon" src="assets/icons/six.svg"
+                              matTooltip="Drag and drop to reorder answers" />
+                            <div class="container-fluid">
+                              <div class="row">
+                                <div class="col-sm-5 center answer-field">
+                                  <app-mimic-input *ngIf="readOnly" labelName="Answer" [isEmpty]=!answer.text
+                                    [content]=answer.text></app-mimic-input>
+                                  <mat-form-field *ngIf="!readOnly">
+                                    <textarea matInput [(ngModel)]="answer.text" placeholder="Answer"
+                                      cdkTextareaAutosize></textarea>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-3 center">
+                                  <mat-form-field (click)="selectSkipDropdown(j, row.item)">
+                                    <mat-label>Skip To</mat-label>
+                                    <mat-select [(value)]="answer.next">
+                                      <mat-option *ngIf="answer.next" [value]=answer.next>
+                                        {{ getQuestionTitle(j, answer.next) }}
+                                      </mat-option>
+                                      <mat-option *ngFor="let question of currentQuestionList" [value]=question.id>
+                                        {{ question.text }}
+                                      </mat-option>
+                                      <mat-option *ngIf="j < diagnostic.themes.length - 1" value="nextTheme">
+                                        Next Theme
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-2 center">
+                                  <app-mimic-input *ngIf="readOnly" labelName="Value" [isEmpty]="answer.value === null"
+                                    [content]=answer.value></app-mimic-input>
+                                  <mat-form-field *ngIf="!readOnly">
+                                    <input type="number" matInput placeholder="Value" [value]="answer.value"
+                                      [(ngModel)]="answer.value">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-2 center-button" *ngIf="!readOnly">
+                                  <img src="assets/icons/add-button.svg" (click)='addAnswerOptionElement(row.item.id, j)'
+                                    matTooltip="Add answer" />
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <img class="icon" src="assets/icons/trash.svg"
+                                    (click)='removeAnswerOptionElement(row.item.id, k, j)' matTooltip="Delete answer" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </ng-container>
+            </ng-template>
+
+            <button *ngIf="!readOnly" class="mat-button" (click)="addQuestionElement(j)">Add Question</button>
+
+            <ng-template #empty_item>
+              <span style="width: 40px"></span>
+            </ng-template>
+          </ng-template>
+        </mat-expansion-panel>
+      </section>
+      <!-- END THEMES EDITOR SECTION-->
+    </mat-tab>
+    <mat-tab label="Strategic Considerations">
+      <!-- START STRATEGIC CONSIDERATION EDITOR SECTION -->
+      <section *ngIf="diagnostic.rubric && diagnostic.rubric.length" id="consideration-editor">
+        <mat-expansion-panel class="theme-panel"
+          *ngFor="let rubric of diagnostic.rubric, let i = index; trackBy: trackByFn" [(expanded)]="rubric.expanded"
+          id="{{ 'rubric' + i }}">
+          <mat-expansion-panel-header class="white-arrow" collapsedHeight="*" expandedHeight="*">
+            <mat-panel-title class="white-text">
+              <span class="center">
+                {{ rubric.title }}
+              </span>
+              <span class="example-fill-remaining-space"></span>
+              <span class="center" *ngIf="!readOnly">
+                <img class="invert-icon" src="assets/icons/trash.svg" (click)='removeRubricElement(i)'
+                  matTooltip="Delete consideration" />
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="container-fluid padding-top">
+            <div class="row">
+              <div class="col-sm-6">
+                <mat-form-field *ngIf="!readOnly">
+                  <textarea matInput [(ngModel)]="rubric.title" placeholder="Strategic Consideration Title"
+                    cdkTextareaAutosize></textarea>
+                </mat-form-field>
+                <app-mimic-input *ngIf="readOnly" labelName="Strategic Consideration Title" [isEmpty]="!rubric.title"
+                  [content]="rubric.title"></app-mimic-input>
+              </div>
+              <div class="col-sm-1">
+                <mat-form-field *ngIf="!readOnly">
+                  <input type="number" matInput placeholder="Min Value" [value]="rubric.min" [(ngModel)]="rubric.min">
+                </mat-form-field>
+                <app-mimic-input *ngIf="readOnly" labelName="Min Value" [isEmpty]="rubric.min === null"
+                  [content]="rubric.min"></app-mimic-input>
+              </div>
+              <div class="col-sm-1">
+                <mat-form-field *ngIf="!readOnly">
+                  <input type="number" matInput placeholder="Max Value" [value]="rubric.max" [(ngModel)]="rubric.max">
+                </mat-form-field>
+                <app-mimic-input *ngIf="readOnly" labelName="Max Value" [isEmpty]="rubric.max === null"
+                  [content]="rubric.max"></app-mimic-input>
+              </div>
+              <div class="col-sm-2">
+                <mat-form-field (click)="ignoreClick($event)" *ngIf="!readOnly">
+                  <mat-label>Level</mat-label>
+                  <mat-select [(value)]="rubric.level">
+                    <mat-option value="Diagnostic">Diagnostic</mat-option>
+                    <mat-option value="Theme" *ngIf="diagnostic.themes.length > 0">Theme</mat-option>
+                    <mat-option value="Capability" *ngIf="diagnostic.tags.length > 0">Capability</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <app-mimic-input *ngIf="readOnly" labelName="Level" [content]=rubric.level></app-mimic-input>
+              </div>
+              <div class="col-sm-2">
+                <mat-form-field (click)="ignoreClick($event)" *ngIf="!readOnly">
+                  <mat-label>Entity</mat-label>
+                  <mat-select [(value)]=rubric.entity
+                    [disabled]="rubric.level === 'Diagnostic' || 
+                                                                      (rubric.level === 'Capability' && diagnosticTags.size === 0) ||
+                                                                      (rubric.level === 'Theme' && diagnostic.themes.length === 0)">
+                    <ng-container *ngIf="rubric.level === 'Theme'">
+                      <mat-option *ngFor="let theme of diagnostic.themes" [(value)]="theme.id">{{ theme.title }}
+                      </mat-option>
+                    </ng-container>
+                    <ng-container *ngIf="rubric.level === 'Capability'">
+                      <mat-option *ngFor="let tag of diagnostic.tags" [(value)]="tag">{{ tag.value }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+                <app-mimic-input *ngIf="readOnly && rubric.entity !== null" labelName="Entity" [content]=rubric.entity>
+                </app-mimic-input>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <mat-form-field class="fit" *ngIf="!readOnly">
+                  <textarea matInput [(ngModel)]="rubric.text" placeholder="Consideration Text"
+                    cdkTextareaAutosize></textarea>
+                </mat-form-field>
+                <app-mimic-input *ngIf="readOnly" labelName="Consideration Text" [isEmpty]=!rubric.text
+                  [content]=rubric.text></app-mimic-input>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </section>
+      <!-- END STRATEGIC CONSIDERATION EDITOR SECTION -->
+    </mat-tab>
+    <mat-tab *ngIf="false" label="Capabilities">
+      <!-- START CAPABILITY EDITOR SECTION -->
+      <section id="capability-editor" *ngIf="diagnostic.isScorecard && isTabSelected('Capabilities')">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10 no-padding">
+              <div class="capability-grid title">
+                <div>
+                  Capability
+                </div>
+                <div>
+                  Capability Id
+                </div>
+              </div>
+              <div class="capability-grid"
+                *ngFor="let capability of diagnostic.tags; let i = index; trackBy: trackByFn">
+                <div>
+                  {{ capability.value }}
+                </div>
+                <div>
+                  <mat-form-field *ngIf="!readOnly">
+                    <textarea matInput [(ngModel)]="capability.capabilityId" placeholder="Capability Id"
+                      cdkTextareaAutosize></textarea>
+                  </mat-form-field>
+                  <div class="padded" *ngIf="readOnly && diagnostic.isScorecard">
+                    <app-mimic-input labelName="Capability Id" [isEmpty]=!capability.capabilityId
+                      [content]=capability.capabilityId></app-mimic-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-1"></div>
+          </div>
+        </div>
+      </section>
+      <!-- END CAPABILITY EDITOR SECTION -->
+    </mat-tab>
+    <mat-tab label="Recommendations">
+      <!-- START RECOMMENDATIONS INVENTORY EDITOR SECTION -->
+      <section id="roadmap-editor" class="row" *ngIf="isTabSelected('Recommendations')">
+        <div class="container-fluid">
+          <div class="row">
+            <app-rec-inventory #ari style="padding-right:0;" class="col-sm-6" [diagnostic]="diagnostic" [tabs]="true"></app-rec-inventory>
+            <app-impl-roadmap style="padding-left:0;" class="col-sm-6" [diagnostic]="diagnostic" [recInv]="ari" [enableCurLvl]="false"></app-impl-roadmap>
+          </div>
+        </div>
+      </section>
+      <!-- END RECOMMENDATIONS INVENTORY EDITOR SECTION -->
+    </mat-tab>
+  </mat-tab-group>
+</ng-container>
+
+<div class="footer-spacing"></div>
+
+<footer class="sticky" *ngIf="!readOnly">
+  <span *ngIf="isTabSelected('Themes')">
+    <button class="mat-button" (click)="addTheme()">Add Theme</button>
+    &nbsp;
+  </span>
+  <span *ngIf="isTabSelected('Strategic Considerations')">
+    <button class="mat-button" (click)="addRubricElement()">Add Strategic Consideration</button>
+    &nbsp;
+  </span>
+  <button class="mat-button" (click)="save()">Save Changes</button>
+</footer>

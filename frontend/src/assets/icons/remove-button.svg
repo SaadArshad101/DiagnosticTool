@@ -1,0 +1,24 @@
+<svg width="17" height="17" xmlns="http://www.w3.org/2000/svg">
+ <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+
+ <title>Fill 25</title>
+ <desc>Created with Sketch.</desc>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g fill-rule="evenodd" fill="none" id="v2">
+   <g fill="darkred" id="Questions---Mobile-(Expanded)">
+    <g id="//-SWOT-ANALYSIS-//">
+     <g id="::-strengths">
+      <path id="Fill-25" d="m11.6875,9.03125l-2.65625,0l0,2.65625c0,0.29219 -0.23747,0.53125 -0.53125,0.53125c-0.29378,0 -0.53125,-0.23906 -0.53125,-0.53125l0,-2.65625l-2.65625,0c-0.29378,0 -0.53125,-0.23906 -0.53125,-0.53125c0,-0.29219 0.23747,-0.53125 0.53125,-0.53125l2.65625,0l0,-2.65625c0,-0.29219 0.23747,-0.53125 0.53125,-0.53125c0.29378,0 0.53125,0.23906 0.53125,0.53125l0,2.65625l2.65625,0c0.29378,0 0.53125,0.23906 0.53125,0.53125c0,0.29219 -0.23747,0.53125 -0.53125,0.53125l0,0zm-3.1875,-9.03125c-4.69466,0 -8.5,3.80375 -8.5,8.5c0,4.69625 3.80534,8.5 8.5,8.5c4.69466,0 8.5,-3.80375 8.5,-8.5c0,-4.69625 -3.80534,-8.5 -8.5,-8.5l0,0z"/>
+     </g>
+    </g>
+   </g>
+  </g>
+  <rect id="svg_1" height="4.125" width="1.75" y="3.09082" x="7.65625" stroke-width="1.5" stroke="darkred" fill="darkred"/>
+  <rect id="svg_2" height="4.75" width="1.3125" y="9.77832" x="7.78125" stroke-width="1.5" stroke="darkred" fill="darkred"/>
+ </g>
+</svg>

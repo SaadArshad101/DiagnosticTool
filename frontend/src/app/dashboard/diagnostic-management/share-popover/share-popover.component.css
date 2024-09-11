@@ -1,0 +1,28 @@
+.cancel-button {
+    color: #00a6b5;
+    background-color: #FFFFFF;
+}
+
+.pop-content mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-option.share-option {
+    font-size: 0.8em;
+    padding: 0 8px;
+    height: 40px;
+}
+
+::ng-deep .cdk-overlay-container {
+    z-index: 9997;
+}
+
+.selected-emails {
+    font-size: 0.8em;
+}
+
+.icon.remove-email {
+    width: 10px;
+    cursor: pointer;
+    margin-top: -2px;
+}

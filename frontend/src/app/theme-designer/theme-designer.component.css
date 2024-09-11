@@ -1,0 +1,506 @@
+.mat-expansion-panel-header {
+  background-color: #263745 !important;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: black;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #00a6b5 !important;
+}
+
+::ng-deep .mat-checkbox-focused .mat-ink-ripple {
+  background-color: #00a6b5
+}
+
+::ng-deep .ng2-tags-container {
+  border-bottom: 0;
+}
+
+::ng-deep .ng2-tag-input {
+  border-bottom: 0 !important;
+}
+
+::ng-deep tag-input {
+  background-color: white;
+  padding: 2px;
+  font-size: 16px;
+}
+
+::ng-deep tag-input input {
+  height: 18px !important;
+}
+
+::ng-deep tag, ::ng-deep tag * {
+  line-height: 16px !important;
+  font-size: 14px !important;
+}
+
+::ng-deep tag {
+  height: 21px !important;
+}
+
+::ng-deep delete-icon svg {
+  height: 16px !important;
+}
+
+::ng-deep delete-icon:hover {
+  transform: none !important;
+}
+
+::ng-deep .tag-label .content {
+  display: none;
+}
+
+/* mat-label {
+  color: white;
+}
+
+mat-select {
+  color: white;
+}
+
+::ng-deep .mat-select-value, ::ng-deep .mat-select-arrow, ::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: white;
+} */
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline, ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: black;
+}
+
+.center {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.mat-form-field {
+  width: 95%;
+}
+
+::ng-deep .white-arrow > .mat-expansion-indicator:after {
+  color: white;
+}
+
+.floating-label-mimic {
+  color: rgba(0,0,0,.54);
+  font-size: 18.2px;
+}
+
+.padded {
+  padding: 5px;
+}
+
+.invert-icon {
+  width: 25px;
+  height: 25px;
+  -webkit-filter: invert(1); /* safari 6.0 - 9.0 */
+          filter: invert(1);
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+}
+
+.center-button {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.white-text {
+  color: white;
+}
+
+.full-height {
+  height: 100%;
+}
+
+textarea {
+  box-sizing: content-box
+}
+
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-expansion-panel-header {
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 48px;
+  height: auto !important;
+  align-content: center;
+}
+
+.theme-panel {
+  width: 80%;
+  max-width: 80%;
+  margin: auto;
+  padding: 1px;
+}
+
+.question-panel {
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+  padding: 1px;
+}
+
+.mat-toolbar {
+  background-color: #00a6b5;
+  color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 48px;
+  height: auto !important;
+  align-content: center;
+}
+
+.question-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  display: block;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.question-box {
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  cursor: move;
+  background-color: #f5f5f5;
+  font-size: 14px;
+}
+
+.question-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.question-info {
+  flex-basis: 50%;
+}
+
+.question-text, .question-description {
+  width: 100%;
+}
+
+.question-title {
+  width: 95%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.no-right-padding {
+  padding-right: 0 !important;
+}
+
+.padding-top {
+  padding-top: 5px;
+}
+
+.answer-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  flex-basis: 50%;
+  display: block;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.answer-box {
+  padding: 5px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.answer-box.inactive-answer {
+  padding-top: 10px;
+}
+
+.answer-box.active-answer .drag-handle-icon {
+  font-size: 20px;
+}
+
+.answer-box.inactive-answer .drag-handle-icon {
+  display: none;
+}
+
+.theme-title {
+  display: flex;
+  justify-content: center;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.footer-spacing {
+  margin-top: 3%;
+}
+
+.title {
+  background-color: #263745;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Oswald";
+  font-weight: bold;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ebebeb;
+}
+
+.entry {
+  font-family: "Oswald", sans-serif;
+  padding: 15px;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.fit {
+  height: 100%;
+  width: 100%;
+}
+
+.editor {
+  height: 50%;
+}
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: 10% repeat(6, 1fr);
+  justify-content: center;
+  gap: 10px 10px;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+/* Careful NOT to add to this selector chain */
+::ng-deep mat-tab-group.navy .mat-tab-label {
+  cursor: pointer;
+  font-family: oswald;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.58;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  color: #C0C1C3;
+  opacity: 1 !important;
+}
+
+/* Keep this entire selector chain intact */
+::ng-deep mat-tab-group.navy>mat-tab-header>div.mat-tab-label-container>div.mat-tab-list>div.mat-tab-labels>.mat-tab-label.mat-tab-label-active {
+  color: #FFFFFF;
+  background-color: #263745;
+}
+
+::ng-deep mat-tab-group.navy .mat-ink-bar {
+  transition: none !important;
+}
+
+::ng-deep mat-tab-group.navy .mat-tab-body-content {
+  margin: 20px 0;
+}
+
+::ng-deep mat-tab-group.navy .mat-tab-body.mat-tab-body-active {
+  overflow-y: hidden !important;
+}
+
+::ng-deep footer {
+  z-index: 99;
+}
+
+.mat-toolbar.question-header {
+  flex-wrap: nowrap;
+}
+
+::ng-deep .question-panel .mat-expansion-panel-header {
+  background-color: #00a6b5 !important;
+}
+
+::ng-deep .dd-dragel {
+  padding-left: 0;
+}
+
+::ng-deep .dd-dragel .question-panel, ::ng-deep .question-panel.active-panel {
+  border-left: 10px solid #263745 !important;
+}
+
+::ng-deep .dd-dragel .question-panel>*, ::ng-deep .question-panel.active-panel>* {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+::ng-deep .question-panel {
+  padding: 0 !important;
+}
+
+::ng-deep .inactive-panel>* {
+  border-left: 10px solid rgba(0, 0, 0, 0);
+}
+
+.drag-handle {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  cursor: move;
+  color: lightgray;
+  transform: rotate(90deg);
+  visibility: hidden;
+}
+
+.active-panel .drag-handle, ::ng-deep .dd-dragel .drag-handle {
+  visibility: visible;
+}
+
+.question-panel.inactive-panel .mat-expansion-panel-header {
+  padding-top: 12px;
+  padding-bottom: 8px;
+}
+
+.question-panel.active-panel .mat-expansion-panel-header {
+  padding-top: 24px;
+  padding-bottom: 12px;
+}
+
+::ng-deep .question-panel .mat-tab-label {
+  min-width: 120px !important;
+  font-size: initial !important;
+}
+
+::ng-deep .question-panel .mat-expansion-indicator {
+  margin-top: -2px;
+}
+
+::ng-deep .dd-dragel {
+  cursor: move;
+}
+
+::ng-deep ul .dd-placeholder {
+  margin-left: 20px !important;
+}
+
+.expander {
+  margin-left: -2px;
+}
+
+.expander-icon {
+  font-size: 2.5em;
+}
+
+::ng-deep ul li .nestable-item-container {
+  padding-left: 0 !important;
+}
+
+::ng-deep ngx-nestable>ul.dd-list {
+  margin-left: -32px;
+}
+
+.answer-box [cdkDragHandle] {
+  display: block;
+  transform: rotate(90deg);
+}
+
+.answer-drag-handle {
+  height: 25px;
+}
+
+.answer-box>[cdkDragHandle] {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+::ng-deep .cdk-drag-handle {
+  max-width: 24px;
+  max-height: 24px;
+}
+
+::ng-deep .mat-expansion-panel-body .mat-expansion-panel-body {
+  padding-right: 0 !important;
+}
+
+.inactive-answer [cdkDragHandle] {
+  visibility: hidden;
+}
+
+.active-answer-line {
+  float: left;
+  width: 10px;
+  margin: -5px -10px;
+}
+
+.active-answer .active-answer-line {
+  background-color: #263745;
+}
+.tabcontent {
+  display: none;
+}
+
+.tablink {
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 5px;
+  color: #999;
+  margin-left: 3px;
+}
+
+.tabactive {
+  background-color: #00a6b5;
+  color: #fff;
+}
+
+.tab-label {
+   font-size: 10px;
+   color: #696969;
+}
+
+#questionnotes, #questionresources {
+  float: left;
+}

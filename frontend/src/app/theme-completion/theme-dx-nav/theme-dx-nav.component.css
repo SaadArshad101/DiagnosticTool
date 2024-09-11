@@ -1,0 +1,86 @@
+.dx-progress-container {
+  padding: 0 3%;
+}
+
+.dx-progress-container h2 {
+   font-family: oswald;
+   font-size: 42px;
+   color: #555;
+}
+
+.text {
+    font-family: oswald;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 1px;
+}
+
+.report-button {
+  margin-left: auto;
+}
+
+.list-question {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 7px 0 7px 30px;
+}
+
+.theme-title {
+  display: flex;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.arrow1 {
+  margin-top: -3px;
+  float: left;
+}
+
+.arrow2 {
+  float: left;
+}
+
+.theme-title:hover, .list-question:hover {
+  cursor: pointer;
+}
+
+.theme-block {
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+div.text.theme-block.current {
+  color: #333;
+}
+
+span.text.list-question.completed {
+  font-weight: bold;
+}
+
+div.text.theme-block.default span.text.list-question {
+  display: none;
+}
+
+div.text.theme-block.current span.text.list-question {
+  display: block;
+}
+
+span.text.list-question.disabled {
+  color: #333;
+  text-decoration: line-through;
+}
+
+span.text.list-question.uncompleted {
+  color: #333;
+  font-weight: normal;
+}
+
+span.text.list-question.current {
+  color: #333;
+  font-weight: bold;
+  text-decoration: underline;
+}

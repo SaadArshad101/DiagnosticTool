@@ -1,0 +1,9 @@
+mat-card {
+    margin: 5px;
+    background: #00a6b5;
+    color: white;
+}
+
+mat-card-subtitle {
+    color: white;
+}

@@ -1,0 +1,63 @@
+#login-container {
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 32em;
+    align-items: center;
+    justify-content: center;
+}
+
+#title {
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#login-disclaimer {
+    padding: 50px 160px 20px 160px;
+    text-align: center;
+    color: white;
+}
+
+#login-form {
+    clear: both;
+    background-color: white;
+    padding: 25px;
+    margin-top: 35px;
+}
+
+input.form-control {
+    padding: 10px;
+    border-color: transparent !important;
+    height: auto;
+    font-size: 130%;
+    border: 0 !important;
+    color: rgb(101, 118, 132);
+    box-shadow: 0 0 !important;
+    outline: none !important;
+    border-radius: 0px;
+    background-color: rgb(240, 240, 240);
+}
+
+input[type="checkbox"] {
+    border-radius: 0px;
+}
+
+.input-group-addon {
+    border-radius: 0;
+    border: 0;
+    background-color: rgb(240, 240, 240);
+    color: rgb(101, 118, 132);
+}
+
+button {
+    background-color: #00a6b5;
+    font-size: 130%;
+    color: white !important;
+    padding: 15px;
+    border-radius: 0px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}

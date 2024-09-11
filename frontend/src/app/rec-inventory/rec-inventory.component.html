@@ -1,0 +1,255 @@
+<div #recinv *ngIf="diagnostic">
+  <!-- START EDITABLE/TABBED RECOMMENDATIONS INVENTORY -->
+  <mat-tab-group
+    *ngIf="tabs"
+    (selectedTabChange)="tabChange($event)"
+    animationDuration="0ms"
+    [selectedIndex]="currentIndex"
+  >
+    <mat-tab
+      *ngFor="let inv of diagnostic.inventory; let i = index"
+      label="{{ inv.name }}"
+    >
+      <div class="rec-header helvetica rec-tab-{{ i }}">
+        <img class="inv-icon" src="assets/icons/inv{{ i }}.svg" />
+        <div class="editor-wrap">
+          <app-edit [(dataModel)]="inv.name" after="Recommendations"></app-edit>
+        </div>
+      </div>
+      <table class="table-inv table table-bordered helvetica">
+        <thead>
+          <tr>
+            <th class="col-rid rec-tab-{{ i }}">ID</th>
+            <th class="col-rec rec-tab-{{ i }}">Recommendation</th>
+            <th class="col-urg rec-tab-{{ i }}">Urgency</th>
+            <th class="col-imp rec-tab-{{ i }}">Impact</th>
+            <th class="col-mat rec-tab-{{ i }}">Maturity</th>
+            <th class="col-ccp rec-tab-{{ i }}">
+              {{ diagnostic.processLabel }}&nbsp;#
+            </th>
+            <th class="col-add">
+                <button class="mat-button submit-rec" (click)="deleteTab(i)">Delete</button>
+            </th>
+          </tr>
+        </thead>
+        <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+          <tr
+            *ngFor="let rec of inv.recommendations; let j = index"
+            cdkDrag
+            class="rec-row"
+          >
+            <td class="col-rid">
+              <img
+                cdkDragHandle
+                [class.hide]="inv.recommendations.length === 1"
+                src="assets/icons/six.svg"
+                class="drag-rec"
+                matTooltip="Drag and drop to reorder recommendations"
+              />
+              <app-edit [(dataModel)]="rec.recommendationId"></app-edit>
+            </td>
+            <td class="col-rec">
+              <app-edit [(dataModel)]="rec.text"></app-edit>
+            </td>
+            <td class="col-urg">
+              <mat-select [(value)]="rec.urgency">
+                <mat-option
+                  *ngFor="let priority of listPriorities()"
+                  value="{{ priority }}"
+                  >{{ priority }}</mat-option
+                >
+              </mat-select>
+            </td>
+            <td class="col-imp">
+              <mat-select [(value)]="rec.impact">
+                <mat-option
+                  *ngFor="let priority of listPriorities()"
+                  value="{{ priority }}"
+                  >{{ priority }}</mat-option
+                >
+              </mat-select>
+            </td>
+            <td class="col-mat">
+              <mat-select [(value)]="rec.maturity" matTooltip="Click to change">
+                <mat-option value="-1"> </mat-option>
+                <mat-option
+                  *ngFor="let mat of [0, 25, 50, 75, 100]"
+                  value="{{ mat }}"
+                >
+                  <img
+                    class="harvey big-icon"
+                    src="{{ getBallForMaturity(mat) }}"
+                  />
+                </mat-option>
+              </mat-select>
+              <div class="mat-indicator-outer">
+                <div class="mat-indicator-inner">
+                  <img
+                    #hb
+                    *ngIf="rec.maturity >= 0"
+                    class="harvey big-icon"
+                    [src]="getBallForMaturity(rec.maturity)"
+                  />
+                </div>
+              </div>
+            </td>
+            <td class="col-ccp">
+              <mat-select [(value)]="rec.ccp">
+                <mat-option value=""> </mat-option>
+                <mat-option *ngFor="let ccp of listCCP()" value="{{ ccp }}">
+                  {{ ccp }}
+                </mat-option>
+              </mat-select>
+            </td>
+            <td class="col-add">
+              <img
+                class="remove-button"
+                src="assets/icons/remove-button.svg"
+                (click)="removeRow(j, inv)"
+                matTooltip="Delete this recommendation"
+              />
+              <img
+                class="insert-button"
+                src="assets/icons/add-button.svg"
+                (click)="insertRowAfter(j, inv)"
+                matTooltip="Insert row below"
+              />
+            </td>
+          </tr>
+          <tr *ngIf="!inv.recommendations.length" class="blank-row">
+            <td class="col-rid unused-col"></td>
+            <td class="col-rec">
+              <input [(ngModel)]="blankRecommendations[i].text" />
+            </td>
+            <td class="col-urg">
+              <mat-select [(value)]="blankRecommendations[i].urgency">
+                <mat-option
+                  *ngFor="let priority of listPriorities()"
+                  value="{{ priority }}"
+                  >{{ priority }}</mat-option
+                >
+              </mat-select>
+            </td>
+            <td class="col-imp">
+              <mat-select [(value)]="blankRecommendations[i].impact">
+                <mat-option
+                  *ngFor="let priority of listPriorities()"
+                  value="{{ priority }}"
+                  >{{ priority }}</mat-option
+                >
+              </mat-select>
+            </td>
+            <td class="col-mat">
+              <mat-select
+                [(value)]="blankRecommendations[i].maturity"
+                matTooltip="Click to change"
+              >
+                <mat-option value="-1"> </mat-option>
+                <mat-option
+                  *ngFor="let mat of [0, 25, 50, 75, 100]"
+                  value="{{ mat }}"
+                >
+                  <img
+                    class="harvey big-icon"
+                    src="{{ getBallForMaturity(mat) }}"
+                  />
+                </mat-option>
+              </mat-select>
+              <div class="mat-indicator-outer">
+                <div class="mat-indicator-inner">
+                  <img
+                    #hb
+                    *ngIf="blankRecommendations[i].maturity >= 0"
+                    class="harvey big-icon"
+                    [src]="getBallForMaturity(blankRecommendations[i].maturity)"
+                  />
+                </div>
+              </div>
+            </td>
+            <td class="col-ccp">
+              <mat-select [(value)]="blankRecommendations[i].ccp">
+                <mat-option value=""> </mat-option>
+                <mat-option *ngFor="let ccp of listCCP()" value="{{ ccp }}">
+                  {{ ccp }}
+                </mat-option>
+              </mat-select>
+            </td>
+            <td class="col-add">
+              <button
+                class="mat-button submit-rec"
+                matTooltip="Add recommendation"
+                (click)="submitRecommendation(i)"
+              >
+                Submit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-tab>
+    <mat-tab disabled class="rec-tab-add">
+      <div class="rec-header helvetica rec-tab-add">
+        <ng-template
+          mat-tab-label
+          *ngIf="this.diagnostic.inventory.length < this.numberOfTabsAllowed"
+        >
+          <button class="add-tab-button" (click)="addTab()">
+            <img
+              class="add-button-icon"
+              src="assets/icons/add_circle_outline_black.svg"
+            />
+          </button>
+        </ng-template>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <!-- END EDITABLE/TABBED RECOMMENDATIONS INVENTORY -->
+  <!-- START READ-ONLY/FULL RECOMMENDATIONS INVENTORY -->
+  <div *ngIf="!tabs" class="rec-wrap">
+    <h2 class="ri-title" align="center">Recommendations</h2>
+    <ng-container *ngFor="let inv of diagnostic.inventory; let i = index">
+      <div class="rec-header helvetica rec-tab-{{ i }}">
+        <img class="inv-icon" src="assets/icons/inv{{ i }}.svg" />
+        <div class="editor-wrap">{{ inv.name }} Recommendations</div>
+      </div>
+      <table class="table-inv table table-bordered helvetica">
+        <thead>
+          <tr>
+            <th class="col-rid rec-tab-{{ i }}">ID</th>
+            <th class="col-rec rec-tab-{{ i }}">Recommendation</th>
+            <th class="col-urg rec-tab-{{ i }}">Urgency</th>
+            <th class="col-imp rec-tab-{{ i }}">Impact</th>
+            <th class="col-ccp rec-tab-{{ i }}">
+              {{ diagnostic.processLabel }}&nbsp;#
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let rec of inv.recommendations; let j = index"
+            class="rec-row"
+          >
+            <td class="col-rid">
+              <span class="rec-icon rec-icon-{{ i }}">{{
+                rec.recommendationId
+              }}</span>
+            </td>
+            <td class="col-rec">
+              {{ rec.text }}
+            </td>
+            <td class="col-urg">
+              {{ rec.urgency }}
+            </td>
+            <td class="col-imp">
+              {{ rec.impact }}
+            </td>
+            <td class="col-ccp">
+              {{ rec.ccp }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+  <!-- END READ-ONLY/FULL RECOMMENDATIONS INVENTORY -->
+</div>

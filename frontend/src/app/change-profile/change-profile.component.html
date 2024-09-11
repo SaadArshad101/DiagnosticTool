@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<div class="container" style="height: 100%;">
+  <div class="row" style="height: 100%;">
+    <div class="col-sm-12" style="height: 100%;">
+      <div id="login-container">
+        <h2 id="title" align="center">Change Profile</h2>
+        <div id="login-form">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                <input type="text" formControlName="firstName" class="form-control" placeholder="First Name" name="firstName">
+              </div>
+              <div *ngIf="submitted && f.firstName.errors">
+                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" name="lastName">
+              </div>
+              <div *ngIf="submitted && f.lastName.errors">
+                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-briefcase"></i></div>
+                <input type="text" formControlName="organization" class="form-control" placeholder="Organization" name="organization">
+              </div>
+              <div *ngIf="submitted && f.organization.errors">
+                <div *ngIf="f.organization.errors.required">Organization is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-briefcase"></i></div>
+                <input type="text" formControlName="organizationRole" class="form-control" placeholder="Organization Role" name="organizationRole">
+              </div>
+              <div *ngIf="submitted && f.organizationRole.errors">
+                <div *ngIf="f.organizationRole.errors.required">Organization Role is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                <input type="text" formControlName="email" class="form-control" placeholder="Email" name="email">
+              </div>
+              <div *ngIf="submitted && f.email.errors">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                <input type="password" formControlName="password" class="form-control" placeholder="Password" name="password" autocomplete="off">
+              </div>
+              <div *ngIf="submitted && f.password.errors">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Confirm Password" name="confirmPassword" autocomplete="off">
+              </div>
+              <div *ngIf="submitted && f.confirmPassword.errors">
+                <div *ngIf="f.confirmPassword.errors.required">Please confirm your password</div>
+                <div *ngIf="f.confirmPassword.errors.mustMatch">Password does not match</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" id="change-button" class="btn btn-block">Change Profile</button>
+              <button type="submit" routerLink="/dashboard" id="cancel-button" class="btn btn-block">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- <p id="loginDisclaimer">
+        This system is the property of Booz Allen Hamilton and may only be accessed by authorized users. 
+        By using this system, you agree to comply with the IT Acceptable Use Policy found at http://policylibrary.bah.com and to monitoring, recording, and investigation of your activities. 
+        Unauthorized use may result in disciplinary action, civil, and/or criminal penalties.
+      </p> -->
+    </div>
+  </div>
+</div>

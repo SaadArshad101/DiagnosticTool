@@ -1,0 +1,11 @@
+table {
+    width: 100%;
+}
+
+td.mat-column-actions {
+    width: 20%;
+}
+
+mat-form-field {
+    width: 80%;
+}

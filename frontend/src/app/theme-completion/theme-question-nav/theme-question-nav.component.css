@@ -1,0 +1,51 @@
+.text {
+    font-family: oswald;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    /*line-height: 2.58;*/
+    letter-spacing: 1px;
+}
+
+.header {
+    color: #263745;
+}
+
+.spaced-out {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.completed {
+    color: #00a6b5;
+}
+
+.uncompleted {
+    color: #c0c1c3;
+}
+
+.current {
+    color: #263745;
+}
+
+.disabled {
+    color: red;
+}
+
+.click {
+    cursor: pointer;
+}
+
+.nav {
+  height: 65px;
+  padding-top: 18px;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.09);
+  background-color: #ffffff;
+  width: 100%;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+}

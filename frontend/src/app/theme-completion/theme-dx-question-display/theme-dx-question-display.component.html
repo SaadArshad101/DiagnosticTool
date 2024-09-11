@@ -1,0 +1,62 @@
+<div class="dx-questions-container" *ngIf="diagnostic">
+
+  <div class="dx-container">
+    <h2>Questions</h2>
+    <div class="">
+        <div class="wrap" *ngIf="isDiagnosticEmpty() == true">
+          <span class="questionTitle">This diagnostic has no themes</span>
+        </div>
+        <div class="wrap" *ngIf="isDiagnosticEmpty() == false && getCurrentQuestionId() == null">
+          <span class="questionTitle">This theme has no questions</span>
+        </div>
+        <div class="wrap" *ngIf="isDiagnosticEmpty() == false && getCurrentQuestionId() != null">
+          <span class="questionTitle">
+            {{ getCurrentQuestion().text }}
+          </span>
+          <div *ngIf="isDiagnosticEmpty() == false && getCurrentQuestion().description != null" class="questiondescription" [innerHTML]="getCurrentQuestion().description"></div>
+          <mat-radio-group *ngIf="getResponses()" class="example-radio-group" [value]="getCurrentResponse().answerId">
+            <div *ngFor="let answerOption of getCurrentQuestion().answers; let i = index">
+              <div class="row answer-margin">
+                <div class="col-sm-12 middle wrap">
+                  <mat-radio-button #button [value]="answerOption.id"
+                    (click)='selectAnswerOption(answerOption, button)'>
+                    <span class="mat-radio-label">
+                    {{ answerOption.text }}
+                    </span>
+                  </mat-radio-button>
+                </div>
+              </div>
+            </div>
+          </mat-radio-group>
+        </div>
+        <div class="wrap" *ngIf="isDiagnosticEmpty() == false && getCurrentQuestionId() != null">
+          <div class="form-group">
+            <div *ngIf="isDiagnosticEmpty() == false && getCurrentQuestion().noteinst != null" class="noteinstruction" [innerHTML]="getCurrentQuestion().noteinst"></div>
+            <quill-editor *ngIf="getResponses()" [(ngModel)]="getCurrentResponse().notes" [modules]="editorOptions" (onBlur)="updateNote(getCurrentResponse().notes)">
+            </quill-editor>
+            </div>
+        </div>
+        <div class="wrap">
+          <div *ngIf="isValidBack()" class="left-button" matTooltip="Go to Previous Question" (click)="back()">
+             Previous
+          </div>
+          <div *ngIf="isValidNext()" class="right-button" matTooltip="Go to Next Question" (click)="next()">
+            Next
+          </div>
+          <div *ngIf="!isValidNext()" class="right-button" matTooltip="Complete and View Report" (click)="setReportClicked()">
+            Complete
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  <div class="dx-resources-container">
+    <ng-container *ngIf="isDiagnosticEmpty() == false && getCurrentQuestion().resources != null">
+      <h2>Resources</h2>
+      <quill-editor [(ngModel)]="getCurrentQuestion().resources" [modules]="resourcesOptions" [readOnly]=true></quill-editor>
+    </ng-container>
+  </div>
+
+</div>
+
+<button *ngIf="diagnostic && diagnostic.isSWOTVertical" class="analysis-sticky" (click)="openDiagnosticNotesDialog()"><img src="../../../assets/img/sticky.png" width="20" height="20" border="0"> &#160; SWOT</button>

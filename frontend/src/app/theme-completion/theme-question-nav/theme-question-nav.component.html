@@ -1,0 +1,14 @@
+<div class="nav" *ngIf="diagnostic">
+  <table>
+    <tr *ngIf="getCurrentTheme().visible">
+      <td class="text header">QUESTION #: &nbsp;&nbsp;&nbsp; </td>
+      <td class="text spaced-out click" *ngFor="let question of getFlattenedQuestions(); let i = index" (click)="selectQuestion(question)"
+      [class.completed]="isQuestionCompleted(question)" [class.uncompleted]="!isQuestionCompleted(question)" [class.current]="isQuestionCurrent(question.id)" 
+      [class.disabled]="isQuestionDisabled(question.id)">{{i+1}}</td>
+      <td class="text completed">
+        <span class="vl"></span>
+        &nbsp;&nbsp;&nbsp;{{ calculatePercentageDone() }}% COMPLETE 
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,32 @@
+<div #editwrap [class.enabled]="!disable" (click)=ignoreClick($event)>
+  <span #inactive *ngIf="!editing" class="inactive" (click)="clickEditor()" (mouseenter)="hover()" (mouseleave)="unhover()" title="Click to edit">
+    <span #disp>
+      <span *ngIf="showPen" class="pen-outer">
+        <span class="pen-inner" [style.height.px]="inactive.offsetHeight">
+          <img class="pen-icon" src="assets/icons/edit.svg" />
+        </span>
+      </span>
+      <span *ngIf="!richText">
+        <span *ngIf="dataModel && before">{{ before }}</span>
+        {{dataModel}}
+        <span *ngIf="dataModel && after">{{ after }}</span>
+        <span *ngIf="!dataModel && placeholder" class="no-data">{{placeholder}}</span>
+        <span *ngIf="!dataModel && !placeholder" class="no-data">&nbsp;</span>
+      </span>
+      <quill-editor *ngIf="richText" class="inactive" [(ngModel)]="dataModel" title="Click to edit" [modules]="readOnlyEditorOptions" [placeholder]="placeholder" [readOnly]="true" [styles]="noBorder"></quill-editor>
+    </span>
+  </span>
+  <span *ngIf="editing" class="active">
+    <input appAutofocus *ngIf="!richText && !textarea" [(ngModel)]="dataModel" (ngModelChange)="dataModelChange.emit(dataModel)" (focusout)="deactivate($event)" (keydown)="ignoreArrowKeys($event)"/>
+    <mat-form-field *ngIf="textarea">
+      <textarea matInput appAutofocus [(ngModel)]="dataModel" (ngModelChange)="dataModelChange.emit(dataModel)" (focusout)="deactivate($event)" [placeholder]="placeholder" cdkTextareaAutosize (keydown)="ignoreArrowKeys($event)"></textarea>
+    </mat-form-field>
+    <quill-editor (onEditorCreated)="setFocus($event)" *ngIf="richText" [(ngModel)]="dataModel" (ngModelChange)="dataModelChange.emit(dataModel)" (focusout)="deactivate($event)" [placeholder]="placeholder" [modules]="bulletsOnly ? bulletOnlyOptions : editModeEditorOptions" (keydown)="ignoreArrowKeys($event)"></quill-editor>
+    <div class="buttons-outer" [style.visibility]="getVisibility()">
+      <div class="buttons-inner">
+          <button class="mat-button button-padding editor-button save-button">Accept</button>
+          <button class="mat-button button-padding editor-button cancel-button">Cancel</button>
+        </div>
+    </div>
+  </span>
+</div>

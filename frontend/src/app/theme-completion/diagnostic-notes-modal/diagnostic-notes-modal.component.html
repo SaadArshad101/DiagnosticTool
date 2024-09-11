@@ -1,0 +1,8 @@
+    <div class="row top" >
+    <h2 mat-dialog-title>General Notes</h2> 
+    <img src="../../../assets/icons/x-button.svg" class="x-button" (click)="close()" />
+</div>
+<mat-dialog-content class="mat-typography">
+    <quill-editor [modules]="editorOptions" [(ngModel)]="data.diagnosticNotes" placeholder="Enter notes here..." (onEditorCreated)="focusEditor($event)"></quill-editor>
+    <app-swot [diagnostic]=data.diagnostic></app-swot>
+</mat-dialog-content>
