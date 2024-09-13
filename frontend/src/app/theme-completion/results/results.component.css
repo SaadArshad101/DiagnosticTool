@@ -221,6 +221,6 @@ tr {
 }
 
 .summary-radar {
-  display: inline-flex;
-  width: 1200px;
+  display: flex;
+  margin-top: 10px;
 }

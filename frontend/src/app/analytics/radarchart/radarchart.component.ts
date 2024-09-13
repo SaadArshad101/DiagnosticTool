@@ -324,6 +324,7 @@ export class RadarChartComponent implements AfterViewInit {
         title: {
           display: true,
           text: "Aggregate Theme Breakdown",
+          fontsize: 30,
         },
         onClick: (c, i: any) => {
           // function to run when a data point is clicked

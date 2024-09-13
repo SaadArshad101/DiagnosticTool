@@ -1,35 +1,8 @@
 <div class="chart-container container">
-  <div class="row">
-    <div *ngIf="this.current_clicked_index == -1" class="col-sm-auto">
-      <p>Word Cloud</p>
-      <angular-d3-cloud
-        [data]="this.wordCloudText"
-        [width]="215"
-        [height]="340"
-        [padding]="5"
-        font="serif"
-        [rotate]="0"
-        [autoFill]="true"
-        [fillMapper]="customFillMapper"
-      >
-      </angular-d3-cloud>
-    </div>
-    <div *ngIf="this.current_clicked_index !== -1" class="col-sm-auto">
-      <p>Theme Word Cloud</p>
-      <angular-d3-cloud
-        [data]="this.wordCloudTextTheme"
-        [width]="215"
-        [height]="340"
-        [padding]="5"
-        font="serif"
-        [rotate]="0"
-        [autoFill]="true"
-        [fillMapper]="customFillMapper"
-      >
-      </angular-d3-cloud>
-    </div>
-    <canvas id="MyChart" class="col-sm-7 another-canvas">{{ chart }}</canvas>
-    <div class="col-sm-1" *ngIf="this.current_clicked_index >= 0">
+  <div class="row">    
+    <canvas id="MyChart" class="col-md-10 another-canvas">{{ chart }}</canvas>
+
+    <div class="col-sm-2" *ngIf="this.current_clicked_index >= 0">
       <table class="table table-bordered table-small table-hover" id="table">
         <thead>
           <tr>
@@ -106,5 +79,36 @@
       >
       </angular-d3-cloud>
     </div> -->
+  </div>
+
+  <div class="row" style="margin-top: 50px;">
+    <div *ngIf="this.current_clicked_index == -1" class="col-md">
+      <p>Word Cloud</p>
+      <angular-d3-cloud
+        [data]="this.wordCloudText"
+        [width]="1110"
+        [height]="350"
+        [padding]="5"
+        font="serif"
+        [rotate]="0"
+        [autoFill]="true"
+        [fillMapper]="customFillMapper"
+      >
+      </angular-d3-cloud>
+    </div>
+    <div *ngIf="this.current_clicked_index !== -1" class="col-md">
+      <p>Theme Word Cloud</p>
+      <angular-d3-cloud
+        [data]="this.wordCloudTextTheme"
+        [width]="215"
+        [height]="340"
+        [padding]="5"
+        font="serif"
+        [rotate]="0"
+        [autoFill]="true"
+        [fillMapper]="customFillMapper"
+      >
+      </angular-d3-cloud>
+    </div>
   </div>
 </div>
