@@ -1,6 +1,59 @@
-<div class="chart-container container">
+<div class="chart-container container-fluid">
   <div class="row">    
-    <canvas id="MyChart" class="col-md-10 another-canvas">{{ chart }}</canvas>
+
+    <div class="col-sm-2" *ngIf="this.current_clicked_index == -1">
+      <table class="table table-bordered table-small table-hover" id="WordCloudTable">
+        <thead>
+          <tr>
+            <th
+              colspan="2"
+              class="table-title"
+              style="
+                text-align: center;
+                background-color: #263745;
+                color: white;
+              "
+            >
+            Word Cloud
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of this.wordCloudText; let i = index">
+            <td>{{ row.text }}</td>
+            <td>{{ row.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-2" *ngIf="this.current_clicked_index >= 0">
+      <table class="table table-bordered table-small table-hover" id="WordCloudThemeTable">
+        <thead>
+          <tr>
+            <th
+              colspan="2"
+              class="table-title"
+              style="
+                text-align: center;
+                background-color: #263745;
+                color: white;
+              "
+            >
+            Theme Word Cloud
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of this.wordCloudTextTheme; let i = index">
+            <td>{{ row.text }}</td>
+            <td>{{ row.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <canvas id="MyChart" class="col-md-8 another-canvas">{{ chart }}</canvas>
 
     <div class="col-sm-2" *ngIf="this.current_clicked_index >= 0">
       <table class="table table-bordered table-small table-hover" id="table">
@@ -79,36 +132,5 @@
       >
       </angular-d3-cloud>
     </div> -->
-  </div>
-
-  <div class="row" style="margin-top: 50px;">
-    <div *ngIf="this.current_clicked_index == -1" class="col-md">
-      <p>Word Cloud</p>
-      <angular-d3-cloud
-        [data]="this.wordCloudText"
-        [width]="1110"
-        [height]="350"
-        [padding]="5"
-        font="serif"
-        [rotate]="0"
-        [autoFill]="true"
-        [fillMapper]="customFillMapper"
-      >
-      </angular-d3-cloud>
-    </div>
-    <div *ngIf="this.current_clicked_index !== -1" class="col-md">
-      <p>Theme Word Cloud</p>
-      <angular-d3-cloud
-        [data]="this.wordCloudTextTheme"
-        [width]="215"
-        [height]="340"
-        [padding]="5"
-        font="serif"
-        [rotate]="0"
-        [autoFill]="true"
-        [fillMapper]="customFillMapper"
-      >
-      </angular-d3-cloud>
-    </div>
   </div>
 </div>
