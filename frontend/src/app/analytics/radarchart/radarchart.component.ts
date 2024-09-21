@@ -292,7 +292,6 @@ export class RadarChartComponent implements AfterViewInit {
         text: wordCloudData.text,
         value: 15 + (wordCloudData.value / highestValue) * 20,
         index: intensityValue,
-        count: wordCloudData.value,
       };
     });
   }
@@ -394,7 +393,6 @@ export class RadarChartComponent implements AfterViewInit {
               text: wordCloudData.text,
               value: 15 + (wordCloudData.value / highestValue) * 20,
               index: intensityValue,
-              count: wordCloudData.value,
             };
           });
 
