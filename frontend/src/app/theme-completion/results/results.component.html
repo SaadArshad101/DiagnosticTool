@@ -83,8 +83,7 @@
           *ngFor="let rubric of getMatchingRubrics()"
         >
           <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8">
+            <div class="col-sm-12">
               <quill-editor
                 id="consideration-text"
                 [(ngModel)]="rubric.text"
@@ -95,7 +94,6 @@
               >
               </quill-editor>
             </div>
-            <div class="col-sm-2"></div>
           </div>
         </div>
       </div>
