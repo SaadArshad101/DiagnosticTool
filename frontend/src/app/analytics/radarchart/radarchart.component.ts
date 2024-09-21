@@ -240,7 +240,7 @@ export class RadarChartComponent implements AfterViewInit {
     );
     let finishedArray = filteredArrayCharacters.map((v) => v.toLowerCase());
     finishedArray = finishedArray.filter(function (word) {
-      return !stopWords.includes(word);
+      return !stopWords.includes(word) &&!!word;
     });
 
     return finishedArray;
@@ -292,6 +292,7 @@ export class RadarChartComponent implements AfterViewInit {
         text: wordCloudData.text,
         value: 15 + (wordCloudData.value / highestValue) * 20,
         index: intensityValue,
+        count: wordCloudData.value,
       };
     });
   }
@@ -324,7 +325,7 @@ export class RadarChartComponent implements AfterViewInit {
         title: {
           display: true,
           text: "Aggregate Theme Breakdown",
-          fontsize: 30,
+          fontSize: 30,
         },
         onClick: (c, i: any) => {
           // function to run when a data point is clicked
@@ -333,10 +334,9 @@ export class RadarChartComponent implements AfterViewInit {
             // this.createWordCloud;
             return;
           }
-          this.current_clicked_index = i[0]._index;
 
-          this.current_hovered_total_percentage =
-            this.radarChartData[this.current_clicked_index];
+          this.current_clicked_index = i[0]._index;
+          
           this.current_hovered_title =
             this.radarChartLabels[this.current_clicked_index];
 
@@ -394,21 +394,20 @@ export class RadarChartComponent implements AfterViewInit {
               text: wordCloudData.text,
               value: 15 + (wordCloudData.value / highestValue) * 20,
               index: intensityValue,
+              count: wordCloudData.value,
             };
           });
 
           this.capability_map = capability_map;
+          let averageArray: number[] = [];
 
-          // get the capabilites and averages from the map and using the getAverageScore()
-          let all_capabilities_and_averages: string[] = [];
           capability_map.forEach((value, key) => {
-            all_capabilities_and_averages.push(
-              `${key}: ${this.getAverageOfScores(value)}%`
-            );
-          });
+            averageArray.push(Number(this.getAverageOfScores(value)))
+            }
+          );
 
-          // return all teh capabilites and averages
-          return all_capabilities_and_averages;
+          this.current_hovered_total_percentage = this.getAverageOfScores(averageArray)
+
         },
         // tool tips controls the view of when you hover over a data point
         tooltips: {
