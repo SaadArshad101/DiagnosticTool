@@ -488,6 +488,7 @@ export class ScorecardService {
     const maxScores = [];
 
     const questions = flatMap.get(theme.id).map((obj) => obj.question);
+    let totalMax = 0;
 
     for (
       let questionIndex = 0;
@@ -501,13 +502,9 @@ export class ScorecardService {
       const answerId = userData.responses[question.id]
         ? userData.responses[question.id].answerId
         : null;
-      let answer = null;
-      if (question.answer === undefined || question.answer === null) {
-        answer = null;
-      } else {
-        answer = question.answers.find((a) => a.id === answerId);
-      }
 
+      let answer = null;
+      answer = question.answers.find((a) => a.id === answerId);
       const userScore = answer ? answer.value : 0;
 
       capNames[questionIndex] = question.capability;
@@ -527,13 +524,14 @@ export class ScorecardService {
 
       currentScores[questionIndex] += userScore;
       maxScores[questionIndex] = currentMax;
+      totalMax += currentMax
     }
 
     const percentages = [];
 
     // Calculate the percentages gotten for each capability
     for (let i = 0; i < currentScores.length; i++) {
-      const percentage = Math.floor((currentScores[i] / maxScores[i]) * 100);
+      const percentage = (currentScores[i] / totalMax) * 100;
       percentages[i] = { maturity: percentage, capability: capNames[i] };
     }
 

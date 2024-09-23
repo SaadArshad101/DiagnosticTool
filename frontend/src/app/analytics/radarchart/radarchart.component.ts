@@ -359,53 +359,55 @@ export class RadarChartComponent implements AfterViewInit {
             }
           );
 
-          //word cloud functionality
-
-          let chosenArray: number[] = this.data[this.current_clicked_index];
-          let filteredArray = this.filterWords(chosenArray);
-
-          let data = d3
-            .rollups(
-              filteredArray,
-              (group) => group.length,
-              (w) => w
-            )
-            .sort(([, a], [, b]) => d3.descending(a, b))
-            .slice(0, 250)
-            .map(([text, value]) => ({ text, value }));
-
-          console.log("data clicked", data);
-          let highestValue = data[0].value;
-
-          //getting sentiment analysis values
-          this.wordCloudTextTheme = data.map(function (wordCloudData) {
-            const sentiment = new Sentiment();
-            let intensity = sentiment.analyze(wordCloudData.text);
-            let intensityValue;
-            if (intensity >= 0.1) {
-              intensityValue = "positive";
-            } else if (intensity <= -0.1) {
-              intensityValue = "negative";
-            } else if (intensity > -0.1 && intensity < 0.1) {
-              intensityValue = "neutral";
-            }
-            return {
-              text: wordCloudData.text,
-              value: 15 + (wordCloudData.value / highestValue) * 20,
-              index: intensityValue,
-            };
-          });
-
           this.capability_map = capability_map;
-          let averageArray: number[] = [];
+          let totalAverage = 0;
+          let percentTotal: number[] = [];
 
           capability_map.forEach((value, key) => {
-            averageArray.push(Number(this.getAverageOfScores(value)))
+            totalAverage += value[0]
             }
           );
+          percentTotal.push(totalAverage)
 
-          this.current_hovered_total_percentage = this.getAverageOfScores(averageArray)
+          this.current_hovered_total_percentage = this.getAverageOfScores(percentTotal)
 
+          //word cloud functionality only if the data array has key workds
+          let chosenArray: number[] = this.data[this.current_clicked_index];
+          if(chosenArray.length > 0)
+          {
+            let filteredArray = this.filterWords(chosenArray);
+
+            let data = d3
+              .rollups(
+                filteredArray,
+                (group) => group.length,
+                (w) => w
+              )
+              .sort(([, a], [, b]) => d3.descending(a, b))
+              .slice(0, 250)
+              .map(([text, value]) => ({ text, value }));
+  
+            let highestValue = data[0].value;
+  
+            //getting sentiment analysis values
+            this.wordCloudTextTheme = data.map(function (wordCloudData) {
+              const sentiment = new Sentiment();
+              let intensity = sentiment.analyze(wordCloudData.text);
+              let intensityValue;
+              if (intensity >= 0.1) {
+                intensityValue = "positive";
+              } else if (intensity <= -0.1) {
+                intensityValue = "negative";
+              } else if (intensity > -0.1 && intensity < 0.1) {
+                intensityValue = "neutral";
+              }
+              return {
+                text: wordCloudData.text,
+                value: 15 + (wordCloudData.value / highestValue) * 20,
+                index: intensityValue,
+              };
+            });
+          }
         },
         // tool tips controls the view of when you hover over a data point
         tooltips: {
@@ -422,7 +424,8 @@ export class RadarChartComponent implements AfterViewInit {
             label: (tooltipItem, data) => {
               // initialize hashmap for
               const capability_map: Map<string, number[]> = new Map();
-
+              let gensc = this.generatedScoreCards
+              let tt = tooltipItem
               // loop through scorecards and map capabilites
               this.generatedScoreCards[tooltipItem.index].capabilities.map(
                 (capability) => {
