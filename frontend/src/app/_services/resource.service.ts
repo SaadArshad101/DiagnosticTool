@@ -6,6 +6,8 @@ import { SwotSerializer, ThemeSerializer, RubricSerializer, ResponseSerializer,
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+
 
 import { Resource, Swot, Question, Answer,
   Diagnostic, Theme, Rubric, Response, User, Template, DefaultDiagnostic, Tag} from '../_models/http_resource';
@@ -22,13 +24,16 @@ const swotEndpoint = environment.swotEndpoint;
 const templateEndpoint = environment.templateEndpoint;
 const defaultDiagnosticEndpoint = environment.defaultDiagnosticEndpoint;
 const tagEndpoint = environment.tagEndpoint;
+const socketUrl = environment.socketUrl;
+const socket = webSocket(socketUrl);
 
 export class ResourceService<T extends Resource> {
 
   constructor(private httpClient: HttpClient,
               private url: string,
               private endpoint: string,
-              private serializer: Serializer) { }
+              private serializer: Serializer,
+              private socket: webSocket) { }
 
   public create(item: T): Observable<T> {
     return this.httpClient
@@ -41,6 +46,19 @@ export class ResourceService<T extends Resource> {
       .put<T>(`${this.url}/${this.endpoint}/${item.id}`,
         this.serializer.toJson(item))
       .pipe(map(data => this.serializer.fromJson(data) as T));
+  }
+
+  public webSocUpdate(diagnostic){
+    this.socket.emit('diagnostic-update', diagnostic);
+  }
+
+  // Listen for diagnostic updates from the server
+  onDiagnosticUpdate(): Observable<any> {
+    return new Observable((observer) => {
+      this.socket.on('diagnostic-update', (delta) => {
+        observer.next(delta);
+      });
+    });
   }
 
   read(id: string): Observable<T> {
@@ -90,7 +108,8 @@ export class SwotService extends ResourceService<Swot> {
       httpClient,
       apiUrl,
       swotEndpoint,
-      SwotSerializer);
+      SwotSerializer,
+      socket);
   }
 }
 
@@ -103,7 +122,8 @@ export class ResponseService extends ResourceService<Response> {
       httpClient,
       apiUrl,
       responseEndpoint,
-      ResponseSerializer);
+      ResponseSerializer,
+      socket);
   }
 }
 
@@ -116,7 +136,8 @@ export class RubricService extends ResourceService<Rubric> {
       httpClient,
       apiUrl,
       rubricEndpoint,
-      RubricSerializer);
+      RubricSerializer,
+      socket);
   }
 }
 
@@ -129,7 +150,8 @@ export class AnswerService extends ResourceService<Answer> {
       httpClient,
       apiUrl,
       answerEndpoint,
-      AnswerSerializer);
+      AnswerSerializer,
+      socket);
   }
 }
 
@@ -142,7 +164,8 @@ export class QuestionService extends ResourceService<Question> {
       httpClient,
       apiUrl,
       questionEndpoint,
-      QuestionSerializer);
+      QuestionSerializer,
+      socket);
   }
 }
 
@@ -155,7 +178,8 @@ export class DiagnosticService extends ResourceService<Diagnostic> {
       httpClient,
       apiUrl,
       diagnosticEndpoint,
-      DiagnosticSerializer);
+      DiagnosticSerializer,
+      socket);
   }
 }
 
@@ -168,7 +192,8 @@ export class ThemeService extends ResourceService<Theme> {
       httpClient,
       apiUrl,
       themeEndpoint,
-      ThemeSerializer);
+      ThemeSerializer,
+      socket);
   }
 }
 
@@ -181,7 +206,8 @@ export class UserService extends ResourceService<User> {
       httpClient,
       apiUrl,
       userEndpoint,
-      UserSerializer);
+      UserSerializer,
+      socket);
   }
 }
 
@@ -194,7 +220,8 @@ export class TemplateService extends ResourceService<Template> {
       httpClient,
       apiUrl,
       templateEndpoint,
-      TemplateSerializer);
+      TemplateSerializer,
+      socket);
   }
 }
 
@@ -207,7 +234,8 @@ export class DefaultDiagnosticService extends ResourceService<DefaultDiagnostic>
       httpClient,
       apiUrl,
       defaultDiagnosticEndpoint,
-      DefaultDiagnosticSerializer);
+      DefaultDiagnosticSerializer,
+      socket);
   }
 }
 
@@ -220,7 +248,8 @@ export class TagService extends ResourceService<Tag> {
       httpClient,
       apiUrl,
       tagEndpoint,
-      TagSerializer);
+      TagSerializer,
+      socket);
   }
 }
 

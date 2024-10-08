@@ -10,7 +10,7 @@
     <div class="questions-container">
       <app-theme-question-display [diagnostic]=diagnostic [flattenedQuestionMap]=flattenedQuestionMap [disabledQuestionIds]=disabledQuestionIds
       (diagnosticEmitter)=diagnosticUpdate($event) (themeIdEmitter)=newThemeSelected($event) 
-      (disabledQuestionIdsEmitter)=disabledQuestionIdsChanged($event)></app-theme-question-display>
+      (disabledQuestionIdsEmitter)=disabledQuestionIdsChanged($event) (webSocDiagnosticEmitter)=webSocDiagnosticUpdate($event)></app-theme-question-display>
     </div>
     <app-swot [diagnostic]=diagnostic (swotEmitter)=diagnosticUpdate($event)></app-swot>
   </div>

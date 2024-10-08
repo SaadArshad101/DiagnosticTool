@@ -48,7 +48,7 @@
           </label>
           <quill-editor id="notes" *ngIf="getResponses()" [(ngModel)]="getCurrentResponse().notes" [modules]="editorOptions" placeholder="Enter notes here..."
                         (onBlur)="updateNote(getCurrentResponse().notes)" (keydown)="ignoreArrowKeys($event)" (onEditorCreated)="editorInit($event)" 
-                        (click)="focusEditor($event)" [styles]="minHeight">
+                        (click)="focusEditor($event)" [styles]="minHeight" (onContentChanged)="onContentChanged(getCurrentResponse().notes)">
           </quill-editor>
         </div>
       </div>

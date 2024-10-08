@@ -107,6 +107,10 @@ export class DataService {
     }));
   }
 
+  webSocUpdateDiagnostic(diagnostic: Diagnostic) {
+    this.diagnosticService.webSocUpdate(diagnostic);
+  }
+
   addDiagnostic(user: User, diagnosticInput: Diagnostic = new Diagnostic()) {
     // This is to make sure that any diagnostics added will have properly generated ids for themes, questions and answers
     // so that taking a diagnostic works

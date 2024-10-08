@@ -2,6 +2,7 @@ import { Component, Output, Input, EventEmitter, HostListener, Renderer2 } from 
 import { Diagnostic, Response, Question } from 'src/app/_models/http_resource';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../_services/dialog/dialog.component';
+import { DiagnosticService, UserService, TemplateService, DefaultDiagnosticService, TagService } from '../../_services/resource.service';
 
 @Component({
   selector: 'app-theme-question-display',
@@ -30,12 +31,20 @@ export class ThemeQuestionDisplayComponent {
   @Input() flattenedQuestionMap;
   @Input() disabledQuestionIds;
   @Output() diagnosticEmitter: EventEmitter<Diagnostic> = new EventEmitter<Diagnostic>();
+  @Output() webSocDiagnosticEmitter: EventEmitter<Diagnostic> = new EventEmitter<Diagnostic>();
   @Output() themeChangeEmitter: EventEmitter<Number> = new EventEmitter<Number>();
   @Output() disabledQuestionIdsEmitter: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @HostListener('document:keydown', ['$event'])
 
   editor = null;
+  constructor(private diagnosticService: DiagnosticService, private dialog: MatDialog, private ren: Renderer2) { }
 
-  @HostListener('document:keydown', ['$event'])
+  ngOnInit(): void {
+    // Listen for changes from other users
+    this.diagnosticService.onDiagnosticUpdate().subscribe((diagnostic) => {
+      this.editor.updateContents(diagnostic);
+      });
+  }
 
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft' && this.isValidBack()) {
@@ -45,8 +54,6 @@ export class ThemeQuestionDisplayComponent {
       this.next();
     }
   }
-
-  constructor(private dialog: MatDialog, private ren: Renderer2) { }
 
   getUserData() {
     for (const userData of this.diagnostic.userData) {
@@ -309,5 +316,10 @@ export class ThemeQuestionDisplayComponent {
 
   focusEditor($event) {
     this.editor.focus();
+  }
+
+  onContentChanged(notes) {
+    this.getCurrentResponse().notes = notes;
+    this.webSocDiagnosticEmitter.emit(this.diagnostic);
   }
 }

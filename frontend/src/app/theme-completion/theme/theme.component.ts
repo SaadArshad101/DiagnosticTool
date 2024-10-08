@@ -113,6 +113,11 @@ export class ThemeComponent implements OnInit {
     this.updateResponse();
   }
 
+  webSocDiagnosticUpdate(e) {
+    this.diagnostic = e;
+    this.webSocUpdateResponse();
+  }
+
   newThemeSelected(e) {
     this.getUserData().currentTheme = e;
     this.updateResponse();
@@ -135,6 +140,28 @@ export class ThemeComponent implements OnInit {
             diagnostic.userData[count] = this.getUserData();
             this.diagnostic = JSON.parse(JSON.stringify(diagnostic));
             this.dataService.updateDiagnostic(this.diagnostic);
+          }
+          count++;
+        }
+      }
+    });
+  }
+
+  webSocUpdateResponse() {
+    this.dataService.getDiagnostic(this.diagnosticId).subscribe(diagnostic => {
+
+      // If the diagnostic is in the middle of being edited while we make an update, do not finish the update and navigate to dashboard
+      if (diagnostic.lock === true) {
+        alert('A user is currently editing this diagnostic. Your last action was not saved. Try again later');
+        this.router.navigate(['/dashboard']);
+      } else {
+        let count = 0;
+        for (const userData of diagnostic.userData) {
+          if (userData.userId === this.userId) {
+
+            diagnostic.userData[count] = this.getUserData();
+            this.diagnostic = JSON.parse(JSON.stringify(diagnostic));
+            this.dataService.webSocUpdateDiagnostic(this.diagnostic);
           }
           count++;
         }

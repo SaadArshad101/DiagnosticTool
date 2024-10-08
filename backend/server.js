@@ -312,7 +312,14 @@ function setAllLocksToFalse() {
 createDefaultAdminAccountIfNoAdminsExist();
 
 const WebSocket = require("ws");
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 8080 }, {
+  cors: {
+    origin: '*', // Replace with your Angular app's URL
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true,
+  }
+});
 
 function noop() {}
 
@@ -335,6 +342,13 @@ wss.on("connection", function connection(ws) {
       function (err, s) {}
     );
     ws.diagnosticId = diagnosticId;
+  });
+
+  ws.on('diagnostic-update', (diagnostics) => {
+    console.log("Update")
+    //ws.broadcast.emit('diagnostic-update', diagnostics);
+    console.log(diagnostics)
+    //wss.emit('diagnostic-update', diagnostics);
   });
 
   ws.onclose = function (event) {
