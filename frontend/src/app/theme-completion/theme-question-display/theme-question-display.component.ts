@@ -39,12 +39,7 @@ export class ThemeQuestionDisplayComponent {
   editor = null;
   constructor(private diagnosticService: DiagnosticService, private dialog: MatDialog, private ren: Renderer2) { }
 
-  ngOnInit(): void {
-    // Listen for changes from other users
-    this.diagnosticService.onDiagnosticUpdate().subscribe((diagnostic) => {
-      this.editor.updateContents(diagnostic);
-      });
-  }
+  ngOnInit(): void { }
 
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft' && this.isValidBack()) {
@@ -312,13 +307,16 @@ export class ThemeQuestionDisplayComponent {
 
   editorInit(editor) {
     this.editor = editor;
+    this.diagnosticService.onDiagnosticUpdate().subscribe((diagnostic) => {
+      this.editor.updateContents(this.getCurrentResponse().notes);
+      });
   }
 
   focusEditor($event) {
     this.editor.focus();
   }
 
-  onContentChanged(notes) {
+  onContentChanged(notes: any) {
     this.getCurrentResponse().notes = notes;
     this.webSocDiagnosticEmitter.emit(this.diagnostic);
   }

@@ -6,8 +6,9 @@ import { SwotSerializer, ThemeSerializer, RubricSerializer, ResponseSerializer,
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-
+import { WebSocketSubject } from 'rxjs/webSocket';
+import { Socket } from 'socket.io-client';
+import * as io from 'socket.io-client';
 
 import { Resource, Swot, Question, Answer,
   Diagnostic, Theme, Rubric, Response, User, Template, DefaultDiagnostic, Tag} from '../_models/http_resource';
@@ -24,8 +25,8 @@ const swotEndpoint = environment.swotEndpoint;
 const templateEndpoint = environment.templateEndpoint;
 const defaultDiagnosticEndpoint = environment.defaultDiagnosticEndpoint;
 const tagEndpoint = environment.tagEndpoint;
-const socketUrl = environment.socketUrl;
-const socket = webSocket(socketUrl);
+const socketUrl = environment.httpsocketUrl;
+const socket = io(socketUrl)
 
 export class ResourceService<T extends Resource> {
 
@@ -33,7 +34,7 @@ export class ResourceService<T extends Resource> {
               private url: string,
               private endpoint: string,
               private serializer: Serializer,
-              private socket: webSocket) { }
+              private socket: Socket) { }
 
   public create(item: T): Observable<T> {
     return this.httpClient

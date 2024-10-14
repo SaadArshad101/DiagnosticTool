@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const http = require('http');
+const socketIo = require('socket.io');
 
 const app = express();
 
@@ -326,44 +328,133 @@ function noop() {}
 function heartbeat() {
   this.isAlive = true;
 }
-
+// Set up the WebSocket server
 wss.on("connection", function connection(ws) {
+  console.log('New wss client connected');
+
   ws.isAlive = true;
   ws.on("pong", heartbeat);
 
-  ws.on("message", (diagnosticId) => {
-    // On response from client, set the diagnostic's lock var to true
-    ws.diagnosticId = diagnosticId;
-    diagnostic.updateOne(
-      { _id: JSON.parse(ws.diagnosticId) },
-      {
-        lock: true,
-      },
-      function (err, s) {}
-    );
-    ws.diagnosticId = diagnosticId;
+  ws.on("message", (message) => {
+    try {
+      const diagnosticId = JSON.parse(message);
+      
+      // On response from client, set the diagnostic's lock var to true
+      ws.diagnosticId = diagnosticId;
+
+      diagnostic.updateOne(
+        { _id: diagnosticId }, // Ensure you parse this if needed
+        { lock: true },
+        function (err, result) {
+          if (err) {
+            console.error('Error updating diagnostic:', err);
+          }
+        }
+      );
+
+      // Send a success response
+      ws.send(JSON.stringify({ status: "success" }));
+    } catch (error) {
+      console.error('Error processing message:', error);
+      ws.send(JSON.stringify({ status: "error", message: "Invalid data received" }));
+    }
   });
 
-  ws.on('diagnostic-update', (diagnostics) => {
-    console.log("Update")
-    //ws.broadcast.emit('diagnostic-update', diagnostics);
-    console.log(diagnostics)
-    //wss.emit('diagnostic-update', diagnostics);
+  ws.on("close", function (event) {
+    try {
+      if (ws.diagnosticId) {
+        diagnostic.updateOne(
+          { _id: ws.diagnosticId }, // Ensure this is valid
+          { lock: false },
+          function (err, result) {
+            if (err) {
+              console.error('Error updating diagnostic on close:', err);
+            }
+          }
+        );
+      }
+    } catch (error) {
+      console.error('Error during close event:', error);
+    }
   });
 
-  ws.onclose = function (event) {
-    diagnostic.updateOne(
-      { _id: JSON.parse(ws.diagnosticId) },
-      {
-        lock: false,
-      },
-      function (err, s) {}
-    );
-  };
-
-  //Apparently you have to wrap whatever string you want to send in JSON.stringify or the client won't think its a string
-  ws.send(JSON.stringify("success"));
+  // Optionally, you could implement a ping/pong mechanism
+  ws.on("ping", noop);
+  ws.send(JSON.stringify({ status: "connected" }));
 });
+
+// Handle error for the server
+wss.on("error", (error) => {
+  console.error('WebSocket server error:', error);
+});
+
+const server = http.createServer(app);
+const ioPort = 8081;
+server.listen(ioPort, () => console.log(`Server running on port ${ioPort}`));
+
+// const io = socketIo(server);
+const io = socketIo(server, {
+    cors: {
+      origin: 'http://localhost:4200', // Replace with your Angular app's URL
+      methods: ['GET', 'POST'],
+      allowedHeaders: ['Content-Type'],
+      credentials: true,
+    }
+  });
+
+  io.on('connection', (socket) => {
+    console.log('New socetIO client connected');
+    
+    socket.on('diagnostic-update', (diagnostics) => {
+    console.log("server Update")
+    try {
+      const diagid = diagnostics.id;
+      console.log(diagid)
+      // On response from client, set the diagnostic's lock var to true
+      io.diagnosticId = diagid;
+
+      diagnostic.updateOne(
+        { _id: diagid }, // Ensure you parse this if needed
+        { lock: true },
+        function (err, result) {
+          if (err) {
+            console.error('Error updating diagnostic:', err);
+          }
+        }
+      );
+
+      // Send a success response
+      socket.broadcast.emit('diagnostic-update', diagnostics);
+      io.emit('diagnostic-update', diagnostics);
+    } catch (error) {
+      console.error('Error processing message:', error);
+      io.send(JSON.stringify({ status: "error", message: "Invalid data received" }));
+    }
+    });
+
+    socket.on("close", function (event) {
+      console.log("server Update close")
+      try {
+        if (io.diagnosticId) {
+          diagnostic.updateOne(
+            { _id: io.diagnosticId }, // Ensure this is valid
+            { lock: false },
+            function (err, result) {
+              if (err) {
+                console.error('Error updating diagnostic on close:', err);
+              }
+            }
+          );
+        }
+      } catch (error) {
+        console.error('Error during close event:', error);
+      }
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Client disconnected');
+    });
+  });
 
 const interval = setInterval(function ping() {
   wss.clients.forEach(function each(ws) {

@@ -22,6 +22,7 @@ export const environment = {
   addDiagnosticToUserEndpoint: 'addDiagnosticToUser',
   removeDiagnosticFromUserEndpoint: 'removeDiagnosticFromUser',
   logoutTimeout: 3600,
+  httpsocketUrl: 'http://localhost:8081',
   socketUrl: 'ws://localhost:8080'
 };
 
