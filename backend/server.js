@@ -272,7 +272,7 @@ function createDefaultAdminAccountIfNoAdminsExist() {
         admin.passwordHash = hash;
         admin.password = null;
 
-        user.create(admin, (e, obj) => {});
+        user.create(admin, (e, obj) => { });
       });
     }
     changeAllRubricsFromNullToDiagnostic();
@@ -285,7 +285,7 @@ function changeAllRubricsFromNullToDiagnostic() {
       for (let rubric of d.rubric) {
         if (rubric.level === undefined) {
           rubric.level = "Diagnostic";
-          diagnostic.updateOne({ _id: d._id }, { $set: d }, (e) => {});
+          diagnostic.updateOne({ _id: d._id }, { $set: d }, (e) => { });
         }
       }
     }
@@ -300,7 +300,7 @@ function stripTagsFromConsiderations() {
     for (let d of diagnostics) {
       for (let rubric of d.rubric) {
         rubric.text = striptags(rubric.text);
-        diagnostic.updateOne({ _id: d._id }, { $set: d }, (e) => {});
+        diagnostic.updateOne({ _id: d._id }, { $set: d }, (e) => { });
       }
     }
     setAllLocksToFalse();
@@ -308,7 +308,7 @@ function stripTagsFromConsiderations() {
 }
 
 function setAllLocksToFalse() {
-  diagnostic.updateMany({}, { lock: false }, function (err, s) {});
+  diagnostic.updateMany({}, { lock: false }, function (err, s) { });
 }
 
 createDefaultAdminAccountIfNoAdminsExist();
@@ -323,22 +323,14 @@ const wss = new WebSocket.Server({ port: 8080 }, {
   }
 });
 
-function noop() {}
-
-function heartbeat() {
-  this.isAlive = true;
-}
 // Set up the WebSocket server
 wss.on("connection", function connection(ws) {
   console.log('New wss client connected');
 
-  ws.isAlive = true;
-  ws.on("pong", heartbeat);
-
   ws.on("message", (message) => {
     try {
       const diagnosticId = JSON.parse(message);
-      
+
       // On response from client, set the diagnostic's lock var to true
       ws.diagnosticId = diagnosticId;
 
@@ -378,8 +370,6 @@ wss.on("connection", function connection(ws) {
     }
   });
 
-  // Optionally, you could implement a ping/pong mechanism
-  ws.on("ping", noop);
   ws.send(JSON.stringify({ status: "connected" }));
 });
 
@@ -394,19 +384,21 @@ server.listen(ioPort, () => console.log(`Server running on port ${ioPort}`));
 
 // const io = socketIo(server);
 const io = socketIo(server, {
-    cors: {
-      origin: 'http://localhost:4200', // Replace with your Angular app's URL
-      methods: ['GET', 'POST'],
-      allowedHeaders: ['Content-Type'],
-      credentials: true,
-    }
-  });
+  cors: {
+    origin: 'http://localhost:4200', // Replace with your Angular app's URL
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true,
+  }
+});
 
-  io.on('connection', (socket) => {
-    console.log('New socetIO client connected');
-    
-    socket.on('diagnostic-update', (diagnostics) => {
+io.on('connection', (socket) => {
+  console.log('New socetIO client connected');
+
+  socket.on('diagnostic-update', (diagnostics) => {
+
     console.log("server Update")
+
     try {
       const diagid = diagnostics.id;
       console.log(diagid)
@@ -415,7 +407,7 @@ const io = socketIo(server, {
 
       diagnostic.updateOne(
         { _id: diagid }, // Ensure you parse this if needed
-        { lock: true },
+        { lock: false },
         function (err, result) {
           if (err) {
             console.error('Error updating diagnostic:', err);
@@ -426,35 +418,17 @@ const io = socketIo(server, {
       // Send a success response
       socket.broadcast.emit('diagnostic-update', diagnostics);
       io.emit('diagnostic-update', diagnostics);
+
     } catch (error) {
       console.error('Error processing message:', error);
       io.send(JSON.stringify({ status: "error", message: "Invalid data received" }));
     }
-    });
-
-    socket.on("close", function (event) {
-      console.log("server Update close")
-      try {
-        if (io.diagnosticId) {
-          diagnostic.updateOne(
-            { _id: io.diagnosticId }, // Ensure this is valid
-            { lock: false },
-            function (err, result) {
-              if (err) {
-                console.error('Error updating diagnostic on close:', err);
-              }
-            }
-          );
-        }
-      } catch (error) {
-        console.error('Error during close event:', error);
-      }
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Client disconnected');
-    });
   });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
 
 const interval = setInterval(function ping() {
   wss.clients.forEach(function each(ws) {
@@ -464,7 +438,7 @@ const interval = setInterval(function ping() {
         {
           lock: false,
         },
-        function (err, s) {}
+        function (err, s) { }
       );
 
       return ws.terminate();

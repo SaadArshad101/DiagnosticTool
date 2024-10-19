@@ -39,11 +39,11 @@ export class ThemeComponent implements OnInit {
   swot: Swot;
 
   constructor(private route: ActivatedRoute,
-              private dataService: DataService,
-              private titleService: Title,
-              private router: Router,
-              private dialog: MatDialog,
-              private responseService: ResponseService) {}
+    private dataService: DataService,
+    private titleService: Title,
+    private router: Router,
+    private dialog: MatDialog,
+    private responseService: ResponseService) { }
 
   ngOnInit() {
     this.userId = localStorage.getItem('diagnosticUser');
@@ -80,6 +80,11 @@ export class ThemeComponent implements OnInit {
         this.titleService.setTitle('Diagnostic - ' + this.diagnostic.title);
       }
     });
+
+    this.dataService.onWebSocDiagnosticUpdate().subscribe(diagnostic => {
+      this.diagnostic = diagnostic
+    });
+
   }
 
   openDiagnosticNotesDialog(): void {
@@ -130,7 +135,7 @@ export class ThemeComponent implements OnInit {
 
       // If the diagnostic is in the middle of being edited while we make an update, do not finish the update and navigate to dashboard
       if (diagnostic.lock === true) {
-        alert('A user is currently editing this diagnostic. Your last action was not saved. Try again later');
+        alert('A user is currently editing this diagnostic. Your last action was not saved. Try again later fron normal update');
         this.router.navigate(['/dashboard']);
       } else {
         let count = 0;
@@ -152,7 +157,7 @@ export class ThemeComponent implements OnInit {
 
       // If the diagnostic is in the middle of being edited while we make an update, do not finish the update and navigate to dashboard
       if (diagnostic.lock === true) {
-        alert('A user is currently editing this diagnostic. Your last action was not saved. Try again later');
+        alert('A user is currently editing this diagnostic. Your last action was not saved. Try again later from web soc');
         this.router.navigate(['/dashboard']);
       } else {
         let count = 0;

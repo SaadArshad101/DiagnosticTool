@@ -63,7 +63,7 @@ export class DataService {
   // Proposed implementation for delete user - DP 08/15/2019
   // deleteUser(id) {
   //   this.userService.delete(id)
-  //     .subscribe(s => {}, 
+  //     .subscribe(s => {},
   //       (err => {
   //         if (err.status === 404) {
   //           alert('This resource was not found');
@@ -109,6 +109,10 @@ export class DataService {
 
   webSocUpdateDiagnostic(diagnostic: Diagnostic) {
     this.diagnosticService.webSocUpdate(diagnostic);
+  }
+
+  onWebSocDiagnosticUpdate() {
+    return this.diagnosticService.onDiagnosticUpdate();
   }
 
   addDiagnostic(user: User, diagnosticInput: Diagnostic = new Diagnostic()) {

@@ -307,9 +307,6 @@ export class ThemeQuestionDisplayComponent {
 
   editorInit(editor) {
     this.editor = editor;
-    this.diagnosticService.onDiagnosticUpdate().subscribe((diagnostic) => {
-      this.editor.updateContents(this.getCurrentResponse().notes);
-      });
   }
 
   focusEditor($event) {
@@ -318,6 +315,9 @@ export class ThemeQuestionDisplayComponent {
 
   onContentChanged(notes: any) {
     this.getCurrentResponse().notes = notes;
+    //save to db first
+    this.diagnosticEmitter.emit(this.diagnostic);
+    //trigger socket
     this.webSocDiagnosticEmitter.emit(this.diagnostic);
   }
 }

@@ -5,7 +5,7 @@
         <img id="previous-arrow" src="assets/icons/left-arrow-deactivated.svg">
       </div>
       <div *ngIf="isValidBack()" class="left-button">
-        <img id="previous-arrow" [src]="hoverLeft ? 'assets/icons/left-arrow-blue-hover.svg' : 'assets/icons/left-arrow-blue.svg' "  (mouseover)="hoverLeft = true" 
+        <img id="previous-arrow" [src]="hoverLeft ? 'assets/icons/left-arrow-blue-hover.svg' : 'assets/icons/left-arrow-blue.svg' "  (mouseover)="hoverLeft = true"
              (mouseout)="hoverLeft = false" matTooltip="Go to Previous Question" matTooltipShowDelay="1000" (click)="back()">
       </div>
     </div>
@@ -41,13 +41,13 @@
         <div class="form-group">
           <label for="exampleFormControlTextarea1">
             <span class="title">NOTES: </span>
-            <img src="assets/icons/info-active.svg" 
-                matTooltip="Record notes here as your going through the Diagnostic Tool. 
+            <img src="assets/icons/info-active.svg"
+                matTooltip="Record notes here as your going through the Diagnostic Tool.
                             These notes will be saved and included in your results when
                             you’re done with the questions.">
           </label>
           <quill-editor id="notes" *ngIf="getResponses()" [(ngModel)]="getCurrentResponse().notes" [modules]="editorOptions" placeholder="Enter notes here..."
-                        (onBlur)="updateNote(getCurrentResponse().notes)" (keydown)="ignoreArrowKeys($event)" (onEditorCreated)="editorInit($event)" 
+                        (keydown)="ignoreArrowKeys($event)" (onEditorCreated)="editorInit($event)"
                         (click)="focusEditor($event)" [styles]="minHeight" (onContentChanged)="onContentChanged(getCurrentResponse().notes)">
           </quill-editor>
         </div>
@@ -57,7 +57,7 @@
         <img id="next-arrow" src="assets/icons/right-arrow-deactivated.svg" />
       </div>
       <div *ngIf="isValidNext()">
-        <img  id="next-arrow" [src]="hoverRight ? 'assets/icons/right-arrow-blue-hover.svg' : 'assets/icons/right-arrow-blue.svg' " (mouseover)="hoverRight = true" 
+        <img  id="next-arrow" [src]="hoverRight ? 'assets/icons/right-arrow-blue-hover.svg' : 'assets/icons/right-arrow-blue.svg' " (mouseover)="hoverRight = true"
         (mouseout)="hoverRight = false" matTooltip="Go to Next Question" matTooltipShowDelay="1000" (click)="next()" />
       </div>
     </div>

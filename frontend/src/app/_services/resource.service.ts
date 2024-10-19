@@ -6,7 +6,6 @@ import { SwotSerializer, ThemeSerializer, RubricSerializer, ResponseSerializer,
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { WebSocketSubject } from 'rxjs/webSocket';
 import { Socket } from 'socket.io-client';
 import * as io from 'socket.io-client';
 
@@ -54,8 +53,8 @@ export class ResourceService<T extends Resource> {
   }
 
   // Listen for diagnostic updates from the server
-  onDiagnosticUpdate(): Observable<any> {
-    return new Observable((observer) => {
+  onDiagnosticUpdate() {
+    return new Observable<Diagnostic>((observer) => {
       this.socket.on('diagnostic-update', (delta) => {
         observer.next(delta);
       });
