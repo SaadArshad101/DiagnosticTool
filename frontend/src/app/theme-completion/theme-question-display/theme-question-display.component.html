@@ -46,9 +46,9 @@
                             These notes will be saved and included in your results when
                             you’re done with the questions.">
           </label>
-          <quill-editor id="notes" *ngIf="getResponses()" [(ngModel)]="getCurrentResponse().notes" [modules]="editorOptions" placeholder="Enter notes here..."
+          <quill-editor id="notes" [(ngModel)]="getCurrentResponse().notes" [modules]="editorOptions" placeholder="Enter notes here..."
                         (keydown)="ignoreArrowKeys($event)" (onEditorCreated)="editorInit($event)"
-                        (click)="focusEditor($event)" [styles]="minHeight" (onContentChanged)="onContentChanged(getCurrentResponse().notes)">
+                        (click)="focusEditor($event)" [styles]="minHeight" (onContentChanged)="onContentChanged($event)">
           </quill-editor>
         </div>
       </div>

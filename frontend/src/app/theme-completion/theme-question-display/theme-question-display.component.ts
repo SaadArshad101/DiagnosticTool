@@ -37,6 +37,7 @@ export class ThemeQuestionDisplayComponent {
   @HostListener('document:keydown', ['$event'])
 
   editor = null;
+  debounceTime = null;
   constructor(private diagnosticService: DiagnosticService, private dialog: MatDialog, private ren: Renderer2) { }
 
   ngOnInit(): void { }
@@ -284,6 +285,8 @@ export class ThemeQuestionDisplayComponent {
       }
 
       this.diagnosticEmitter.emit(this.diagnostic);
+      this.webSocDiagnosticEmitter.emit(this.diagnostic);
+
     });
   }
 
@@ -314,10 +317,15 @@ export class ThemeQuestionDisplayComponent {
   }
 
   onContentChanged(notes: any) {
-    this.getCurrentResponse().notes = notes;
+    if(this.debounceTime){
+      clearTimeout(this.debounceTime)
+    }
+
+    this.debounceTime = setTimeout(() => {
     //save to db first
     this.diagnosticEmitter.emit(this.diagnostic);
     //trigger socket
     this.webSocDiagnosticEmitter.emit(this.diagnostic);
+    }, 500)
   }
 }
